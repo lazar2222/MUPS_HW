@@ -2,32 +2,27 @@
 CC = gcc
 CC_FLAGS = -fopenmp -O3
 LIB = -lm
-OBJ = main.o \
-	dfill.o \
-	domove.o \
-	dscal.o \
-	fcc.o \
-	forces.o \
-	mkekin.o \
-	mxwell.o \
-	prnout.o \
-	velavg.o
 
-all: prime feyman md
+all: dz1z1 dz1z2 dz1z3 dz1z4 dz1z5
 
-prime: 
-	$(CC) $(CC_FLAGS) prime.c -o prime 
+dz1z1: 
+	$(CC) $(CC_FLAGS) dz1z1.c -o dz1z1 
 
-feyman: 
-	$(CC) $(CC_FLAGS) feyman.c -o feyman $(LIB)
+dz1z2: 
+	$(CC) $(CC_FLAGS) dz1z2.c -o dz1z2 
 
-md:	$(OBJ)
-	$(CC) $(CC_FLAGS) -o $@ $(OBJ) $(LIB)
+dz1z3: 
+	$(CC) $(CC_FLAGS) dz1z3.c -o dz1z3 $(LIB)
 
-.c.o:
-	$(CC) $(CC_FLAGS) -c $<
+dz1z4: 
+	$(CC) $(CC_FLAGS) dz1z4.c -o dz1z4 $(LIB)
+
+dz1z5: 
+	$(CC) $(CC_FLAGS) dz1z5.c -o dz1z5 $(LIB)
 
 clean:
-	rm -f prime
-	rm -f feyman
-	rm *.o md
+	rm -f dz1z1
+	rm -f dz1z2
+	rm -f dz1z3
+	rm -f dz1z4
+	rm -f dz1z5

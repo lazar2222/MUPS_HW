@@ -159,6 +159,8 @@ double secnds()
   return omp_get_wtime();
 }
 
+#undef mm
+#undef npart
 // dfill.c
 /*
  *  function dfill : intialises double precision array to scalar value
