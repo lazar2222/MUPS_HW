@@ -63,6 +63,8 @@ void timestamp(void)
 #undef TIME_SIZE
 }
 
+int seed = 123456789;
+
 // print na stdout upotrebiti u validaciji paralelnog resenja
 int main(int arc, char **argv)
 {
@@ -84,7 +86,6 @@ int main(int arc, char **argv)
   int nj;
   int nk;
   double stepsz;
-  int seed = 123456789;
   int steps;
   int steps_ave;
   int trial;
@@ -102,6 +103,8 @@ int main(int arc, char **argv)
   double we;
   double wt;
   double z;
+
+  #pragma omp threadprivate(seed)
 
   int N = atoi(argv[1]);
   timestamp();
@@ -136,105 +139,117 @@ int main(int arc, char **argv)
   err = 0.0;
   n_inside = 0;
 
-  for (i = 1; i <= ni; i++)
+
+  #pragma omp parallel default(none) private(x1,x2,x3,x,y,z,dx,dy,dz,vh,vs,wt,we,w,w_exact,trial,steps,steps_ave,us,ut,chk) shared(i,j,k,ni,nj,nk,N,h,stepsz,a,b,c,n_inside,err) copyin(seed)
   {
-    x = ((double)(ni - i) * (-a) + (double)(i - 1) * a) / (double)(ni - 1);
-
-    for (j = 1; j <= nj; j++)
+    #pragma omp single 
     {
-      y = ((double)(nj - j) * (-b) + (double)(j - 1) * b) / (double)(nj - 1);
-
-      for (k = 1; k <= nk; k++)
+      for (i = 1; i <= ni; i++)
       {
-        z = ((double)(nk - k) * (-c) + (double)(k - 1) * c) / (double)(nk - 1);
+        x = ((double)(ni - i) * (-a) + (double)(i - 1) * a) / (double)(ni - 1);
 
-        chk = pow(x / a, 2) + pow(y / b, 2) + pow(z / c, 2);
-
-        if (1.0 < chk)
+        for (j = 1; j <= nj; j++)
         {
-          w_exact = 1.0;
-          wt = 1.0;
-          steps_ave = 0;
-          // printf("  %7.4f  %7.4f  %7.4f  %10.4e  %10.4e  %10.4e  %8d\n",
-          //        x, y, z, wt, w_exact, fabs(w_exact - wt), steps_ave);
+          y = ((double)(nj - j) * (-b) + (double)(j - 1) * b) / (double)(nj - 1);
 
-          continue;
-        }
-
-        n_inside++;
-
-        w_exact = exp(pow(x / a, 2) + pow(y / b, 2) + pow(z / c, 2) - 1.0);
-
-        wt = 0.0;
-        steps = 0;
-        for (trial = 0; trial < N; trial++)
-        {
-          x1 = x;
-          x2 = y;
-          x3 = z;
-          w = 1.0;
-          chk = 0.0;
-          while (chk < 1.0)
+          for (k = 1; k <= nk; k++)
           {
-            ut = r8_uniform_01(&seed);
-            if (ut < 1.0 / 3.0)
+            z = ((double)(nk - k) * (-c) + (double)(k - 1) * c) / (double)(nk - 1);
+
+            chk = pow(x / a, 2) + pow(y / b, 2) + pow(z / c, 2);
+
+            if (1.0 < chk)
             {
-              us = r8_uniform_01(&seed) - 0.5;
-              if (us < 0.0)
-                dx = -stepsz;
-              else
-                dx = stepsz;
-            }
-            else
-              dx = 0.0;
+              w_exact = 1.0;
+              wt = 1.0;
+              steps_ave = 0;
+              // printf("  %7.4f  %7.4f  %7.4f  %10.4e  %10.4e  %10.4e  %8d\n",
+              //        x, y, z, wt, w_exact, fabs(w_exact - wt), steps_ave);
 
-            ut = r8_uniform_01(&seed);
-            if (ut < 1.0 / 3.0)
+              continue;
+            }
+
+            n_inside++;
+
+            w_exact = exp(pow(x / a, 2) + pow(y / b, 2) + pow(z / c, 2) - 1.0);
+
+            
+            #pragma omp task
             {
-              us = r8_uniform_01(&seed) - 0.5;
-              if (us < 0.0)
-                dy = -stepsz;
-              else
-                dy = stepsz;
+              wt = 0.0;
+              steps = 0;
+              for (trial = 0; trial < N; trial++)
+              {
+                x1 = x;
+                x2 = y;
+                x3 = z;
+                w = 1.0;
+                chk = 0.0;
+                while (chk < 1.0)
+                {
+                  ut = r8_uniform_01(&seed);
+                  if (ut < 1.0 / 3.0)
+                  {
+                    us = r8_uniform_01(&seed) - 0.5;
+                    if (us < 0.0)
+                      dx = -stepsz;
+                    else
+                      dx = stepsz;
+                  }
+                  else
+                    dx = 0.0;
+
+                  ut = r8_uniform_01(&seed);
+                  if (ut < 1.0 / 3.0)
+                  {
+                    us = r8_uniform_01(&seed) - 0.5;
+                    if (us < 0.0)
+                      dy = -stepsz;
+                    else
+                      dy = stepsz;
+                  }
+                  else
+                    dy = 0.0;
+
+                  ut = r8_uniform_01(&seed);
+                  if (ut < 1.0 / 3.0)
+                  {
+                    us = r8_uniform_01(&seed) - 0.5;
+                    if (us < 0.0)
+                      dz = -stepsz;
+                    else
+                      dz = stepsz;
+                  }
+                  else
+                    dz = 0.0;
+
+                  vs = potential(a, b, c, x1, x2, x3);
+                  x1 = x1 + dx;
+                  x2 = x2 + dy;
+                  x3 = x3 + dz;
+
+                  steps++;
+
+                  vh = potential(a, b, c, x1, x2, x3);
+
+                  we = (1.0 - h * vs) * w;
+                  w = w - 0.5 * h * (vh * we + vs * w);
+
+                  chk = pow(x1 / a, 2) + pow(x2 / b, 2) + pow(x3 / c, 2);
+                }
+                wt = wt + w;
+              }
+              wt = wt / (double)(N);
+              steps_ave = steps / (double)(N);
+
+              #pragma omp atomic
+              err = err + pow(w_exact - wt, 2);
+
+              // printf("  %7.4f  %7.4f  %7.4f  %10.4e  %10.4e  %10.4e  %8d\n",
+              //        x, y, z, wt, w_exact, fabs(w_exact - wt), steps_ave);
             }
-            else
-              dy = 0.0;
-
-            ut = r8_uniform_01(&seed);
-            if (ut < 1.0 / 3.0)
-            {
-              us = r8_uniform_01(&seed) - 0.5;
-              if (us < 0.0)
-                dz = -stepsz;
-              else
-                dz = stepsz;
-            }
-            else
-              dz = 0.0;
-
-            vs = potential(a, b, c, x1, x2, x3);
-            x1 = x1 + dx;
-            x2 = x2 + dy;
-            x3 = x3 + dz;
-
-            steps++;
-
-            vh = potential(a, b, c, x1, x2, x3);
-
-            we = (1.0 - h * vs) * w;
-            w = w - 0.5 * h * (vh * we + vs * w);
-
-            chk = pow(x1 / a, 2) + pow(x2 / b, 2) + pow(x3 / c, 2);
           }
-          wt = wt + w;
         }
-        wt = wt / (double)(N);
-        steps_ave = steps / (double)(N);
-
-        err = err + pow(w_exact - wt, 2);
-
-        // printf("  %7.4f  %7.4f  %7.4f  %10.4e  %10.4e  %10.4e  %8d\n",
-        //        x, y, z, wt, w_exact, fabs(w_exact - wt), steps_ave);
       }
     }
   }

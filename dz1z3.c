@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <omp.h>
 
 int i4_ceiling(double x)
 {
@@ -136,16 +137,16 @@ int main(int arc, char **argv)
   err = 0.0;
   n_inside = 0;
 
+  #pragma omp parallel for collapse(3) schedule(dynamic, 1) default(none) private(i,j,k,we,vh,dx,dy,dz,vs,us,ut,x,y,z,x1,x2,x3,chk,w_exact,wt,steps_ave,w,trial,steps) shared(ni,nj,nk,N,h,stepsz,a,b,c) firstprivate(seed) reduction(+:err,n_inside)
   for (i = 1; i <= ni; i++)
   {
-    x = ((double)(ni - i) * (-a) + (double)(i - 1) * a) / (double)(ni - 1);
-
     for (j = 1; j <= nj; j++)
     {
-      y = ((double)(nj - j) * (-b) + (double)(j - 1) * b) / (double)(nj - 1);
-
       for (k = 1; k <= nk; k++)
       {
+        //printf("id:%d i:%d j:%d k:%d\n",omp_get_thread_num(),i,j,k);
+        x = ((double)(ni - i) * (-a) + (double)(i - 1) * a) / (double)(ni - 1);
+        y = ((double)(nj - j) * (-b) + (double)(j - 1) * b) / (double)(nj - 1);
         z = ((double)(nk - k) * (-c) + (double)(k - 1) * c) / (double)(nk - 1);
 
         chk = pow(x / a, 2) + pow(y / b, 2) + pow(z / c, 2);

@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <time.h>
+#include <omp.h>
+
+#define min(x,y) ((x)<(y)?(x):(y))
 
 double cpu_time(void)
 {
@@ -21,18 +24,27 @@ int prime_number(int n)
 
   total = 0;
 
-  for (i = 2; i <= n; i++)
+  #pragma omp parallel default(none) reduction(+:total) private(i,j,prime) firstprivate(n)
   {
-    prime = 1;
-    for (j = 2; j < i; j++)
+    int N =  omp_get_num_threads();
+    int slice =(n-1)/N;
+    int excess = (n-1)%N;
+    int start = 2 + ( slice * omp_get_thread_num() + min(excess , omp_get_thread_num()));
+    int end = start + slice + (omp_get_thread_num() < excess ? 1 : 0);
+    //printf("id:%d start:%d end:%d\n",omp_get_thread_num(),start, end);
+    for (i = start; i < end; i++)
     {
-      if ((i % j) == 0)
+      prime = 1;
+      for (j = 2; j < i; j++)
       {
-        prime = 0;
-        break;
+        if ((i % j) == 0)
+        {
+          prime = 0;
+          break;
+        }
       }
+      total = total + prime;
     }
-    total = total + prime;
   }
   return total;
 }
