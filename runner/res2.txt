@@ -1,0 +1,546 @@
+unning task: dz1z1
+Building variant: prime_v0seq
+make: 'prime_v0seq' is up to date.
+Running variant: prime_v0seq
+Running test case: 1 of 4
+Time: 1.277102
+Time: 1.277102
+Time: 1.277102
+AVG Time: 1.2771
+Running test case: 2 of 4
+Time: 12.329476
+Time: 12.329476
+Time: 12.329476
+AVG Time: 12.3295
+Running test case: 3 of 4
+Time: 0.274209
+Time: 0.274209
+Time: 0.274209
+AVG Time: 0.2742
+Running test case: 4 of 4
+Time: 12.417561
+Time: 12.417561
+Time: 12.417561
+AVG Time: 12.4176
+Building variant: prime_v1par
+make: 'prime_v1par' is up to date.
+Running variant: prime_v1par
+Running test case: 1 of 4 N= 1
+Time: 1.276841 Speedup: 1.00 Test  PASSED
+Time: 1.276841 Speedup: 1.00 Test  PASSED
+Time: 1.276841 Speedup: 1.00 Test  PASSED
+AVG Time: 1.2768 AVG Speedup: 1.00
+Running test case: 1 of 4 N= 2
+Time: 0.957529 Speedup: 1.33 Test  PASSED
+Time: 0.957529 Speedup: 1.33 Test  PASSED
+Time: 0.957529 Speedup: 1.33 Test  PASSED
+AVG Time: 0.9575 AVG Speedup: 1.33
+Running test case: 1 of 4 N= 4
+Time: 0.556576 Speedup: 2.29 Test  PASSED
+Time: 0.556576 Speedup: 2.29 Test  PASSED
+Time: 0.556576 Speedup: 2.29 Test  PASSED
+AVG Time: 0.5566 AVG Speedup: 2.29
+Running test case: 1 of 4 N= 8
+Time: 0.330302 Speedup: 3.87 Test  PASSED
+Time: 0.330302 Speedup: 3.87 Test  PASSED
+Time: 0.330302 Speedup: 3.87 Test  PASSED
+AVG Time: 0.3303 AVG Speedup: 3.87
+Running test case: 1 of 4 N= 16
+Time: 0.242549 Speedup: 5.27 Test  PASSED
+Time: 0.242549 Speedup: 5.27 Test  PASSED
+Time: 0.242549 Speedup: 5.27 Test  PASSED
+AVG Time: 0.2425 AVG Speedup: 5.27
+Running test case: 2 of 4 N= 1
+Time: 12.571845 Speedup: 0.98 Test  PASSED
+Time: 12.571845 Speedup: 0.98 Test  PASSED
+Time: 12.571845 Speedup: 0.98 Test  PASSED
+AVG Time: 12.5718 AVG Speedup: 0.98
+Running test case: 2 of 4 N= 2
+Time: 9.077945 Speedup: 1.36 Test  PASSED
+Time: 9.077945 Speedup: 1.36 Test  PASSED
+Time: 9.077945 Speedup: 1.36 Test  PASSED
+AVG Time: 9.0779 AVG Speedup: 1.36
+Running test case: 2 of 4 N= 4
+Time: 5.400059 Speedup: 2.28 Test  PASSED
+Time: 5.400059 Speedup: 2.28 Test  PASSED
+Time: 5.400059 Speedup: 2.28 Test  PASSED
+AVG Time: 5.4001 AVG Speedup: 2.28
+Running test case: 2 of 4 N= 8
+Time: 2.942513 Speedup: 4.19 Test  PASSED
+Time: 2.942513 Speedup: 4.19 Test  PASSED
+Time: 2.942513 Speedup: 4.19 Test  PASSED
+AVG Time: 2.9425 AVG Speedup: 4.19
+Running test case: 2 of 4 N= 16
+Time: 2.176066 Speedup: 5.67 Test  PASSED
+Time: 2.176066 Speedup: 5.67 Test  PASSED
+Time: 2.176066 Speedup: 5.67 Test  PASSED
+AVG Time: 2.1761 AVG Speedup: 5.67
+Running test case: 3 of 4 N= 1
+Time: 0.275262 Speedup: 1.00 Test  PASSED
+Time: 0.275262 Speedup: 1.00 Test  PASSED
+Time: 0.275262 Speedup: 1.00 Test  PASSED
+AVG Time: 0.2753 AVG Speedup: 1.00
+Running test case: 3 of 4 N= 2
+Time: 0.201258 Speedup: 1.36 Test  PASSED
+Time: 0.201258 Speedup: 1.36 Test  PASSED
+Time: 0.201258 Speedup: 1.36 Test  PASSED
+AVG Time: 0.2013 AVG Speedup: 1.36
+Running test case: 3 of 4 N= 4
+Time: 0.117085 Speedup: 2.34 Test  PASSED
+Time: 0.117085 Speedup: 2.34 Test  PASSED
+Time: 0.117085 Speedup: 2.34 Test  PASSED
+AVG Time: 0.1171 AVG Speedup: 2.34
+Running test case: 3 of 4 N= 8
+Time: 0.064112 Speedup: 4.28 Test  PASSED
+Time: 0.064112 Speedup: 4.28 Test  PASSED
+Time: 0.064112 Speedup: 4.28 Test  PASSED
+AVG Time: 0.0641 AVG Speedup: 4.28
+Running test case: 3 of 4 N= 16
+Time: 0.051094 Speedup: 5.37 Test  PASSED
+Time: 0.051094 Speedup: 5.37 Test  PASSED
+Time: 0.051094 Speedup: 5.37 Test  PASSED
+AVG Time: 0.0511 AVG Speedup: 5.37
+Running test case: 4 of 4 N= 1
+Time: 12.172224 Speedup: 1.02 Test  PASSED
+Time: 12.172224 Speedup: 1.02 Test  PASSED
+Time: 12.172224 Speedup: 1.02 Test  PASSED
+AVG Time: 12.1722 AVG Speedup: 1.02
+Running test case: 4 of 4 N= 2
+Time: 8.964257 Speedup: 1.39 Test  PASSED
+Time: 8.964257 Speedup: 1.39 Test  PASSED
+Time: 8.964257 Speedup: 1.39 Test  PASSED
+AVG Time: 8.9643 AVG Speedup: 1.39
+Running test case: 4 of 4 N= 4
+Time: 5.333056 Speedup: 2.33 Test  PASSED
+Time: 5.333056 Speedup: 2.33 Test  PASSED
+Time: 5.333056 Speedup: 2.33 Test  PASSED
+AVG Time: 5.3331 AVG Speedup: 2.33
+Running test case: 4 of 4 N= 8
+Time: 3.030459 Speedup: 4.10 Test  PASSED
+Time: 3.030459 Speedup: 4.10 Test  PASSED
+Time: 3.030459 Speedup: 4.10 Test  PASSED
+AVG Time: 3.0305 AVG Speedup: 4.10
+Running test case: 4 of 4 N= 16
+Time: 2.149997 Speedup: 5.78 Test  PASSED
+Time: 2.149997 Speedup: 5.78 Test  PASSED
+Time: 2.149997 Speedup: 5.78 Test  PASSED
+AVG Time: 2.1500 AVG Speedup: 5.78
+Running task: dz1z2
+Building variant: prime_v0seq
+make: 'prime_v0seq' is up to date.
+Running variant: prime_v0seq
+Running test case: 1 of 4
+Time: 1.302862
+Time: 1.302862
+Time: 1.302862
+AVG Time: 1.3029
+Running test case: 2 of 4
+Time: 12.570651
+Time: 12.570651
+Time: 12.570651
+AVG Time: 12.5707
+Running test case: 3 of 4
+Time: 0.274432
+Time: 0.274432
+Time: 0.274432
+AVG Time: 0.2744
+Running test case: 4 of 4
+Time: 12.418796
+Time: 12.418796
+Time: 12.418796
+AVG Time: 12.4188
+Building variant: prime_v1par
+make: 'prime_v1par' is up to date.
+Running variant: prime_v1par
+Running test case: 1 of 4 N= 1
+Time: 1.278368 Speedup: 1.02 Test  PASSED
+Time: 1.278368 Speedup: 1.02 Test  PASSED
+Time: 1.278368 Speedup: 1.02 Test  PASSED
+AVG Time: 1.2784 AVG Speedup: 1.02
+Running test case: 1 of 4 N= 2
+Time: 0.654871 Speedup: 1.99 Test  PASSED
+Time: 0.654871 Speedup: 1.99 Test  PASSED
+Time: 0.654871 Speedup: 1.99 Test  PASSED
+AVG Time: 0.6549 AVG Speedup: 1.99
+Running test case: 1 of 4 N= 4
+Time: 0.334431 Speedup: 3.90 Test  PASSED
+Time: 0.334431 Speedup: 3.90 Test  PASSED
+Time: 0.334431 Speedup: 3.90 Test  PASSED
+AVG Time: 0.3344 AVG Speedup: 3.90
+Running test case: 1 of 4 N= 8
+Time: 0.178195 Speedup: 7.31 Test  PASSED
+Time: 0.178195 Speedup: 7.31 Test  PASSED
+Time: 0.178195 Speedup: 7.31 Test  PASSED
+AVG Time: 0.1782 AVG Speedup: 7.31
+Running test case: 1 of 4 N= 16
+Time: 0.177981 Speedup: 7.32 Test  PASSED
+Time: 0.177981 Speedup: 7.32 Test  PASSED
+Time: 0.177981 Speedup: 7.32 Test  PASSED
+AVG Time: 0.1780 AVG Speedup: 7.32
+Running test case: 2 of 4 N= 1
+Time: 12.575882 Speedup: 1.00 Test  PASSED
+Time: 12.575882 Speedup: 1.00 Test  PASSED
+Time: 12.575882 Speedup: 1.00 Test  PASSED
+AVG Time: 12.5759 AVG Speedup: 1.00
+Running test case: 2 of 4 N= 2
+Time: 6.302514 Speedup: 1.99 Test  PASSED
+Time: 6.302514 Speedup: 1.99 Test  PASSED
+Time: 6.302514 Speedup: 1.99 Test  PASSED
+AVG Time: 6.3025 AVG Speedup: 1.99
+Running test case: 2 of 4 N= 4
+Time: 3.218118 Speedup: 3.91 Test  PASSED
+Time: 3.218118 Speedup: 3.91 Test  PASSED
+Time: 3.218118 Speedup: 3.91 Test  PASSED
+AVG Time: 3.2181 AVG Speedup: 3.91
+Running test case: 2 of 4 N= 8
+Time: 1.928565 Speedup: 6.52 Test  PASSED
+Time: 1.928565 Speedup: 6.52 Test  PASSED
+Time: 1.928565 Speedup: 6.52 Test  PASSED
+AVG Time: 1.9286 AVG Speedup: 6.52
+Running test case: 2 of 4 N= 16
+Time: 1.714057 Speedup: 7.33 Test  PASSED
+Time: 1.714057 Speedup: 7.33 Test  PASSED
+Time: 1.714057 Speedup: 7.33 Test  PASSED
+AVG Time: 1.7141 AVG Speedup: 7.33
+Running test case: 3 of 4 N= 1
+Time: 0.274556 Speedup: 1.00 Test  PASSED
+Time: 0.274556 Speedup: 1.00 Test  PASSED
+Time: 0.274556 Speedup: 1.00 Test  PASSED
+AVG Time: 0.2746 AVG Speedup: 1.00
+Running test case: 3 of 4 N= 2
+Time: 0.13714 Speedup: 2.00 Test  PASSED
+Time: 0.13714 Speedup: 2.00 Test  PASSED
+Time: 0.13714 Speedup: 2.00 Test  PASSED
+AVG Time: 0.1371 AVG Speedup: 2.00
+Running test case: 3 of 4 N= 4
+Time: 0.070802 Speedup: 3.88 Test  PASSED
+Time: 0.070802 Speedup: 3.88 Test  PASSED
+Time: 0.070802 Speedup: 3.88 Test  PASSED
+AVG Time: 0.0708 AVG Speedup: 3.88
+Running test case: 3 of 4 N= 8
+Time: 0.037615 Speedup: 7.30 Test  PASSED
+Time: 0.037615 Speedup: 7.30 Test  PASSED
+Time: 0.037615 Speedup: 7.30 Test  PASSED
+AVG Time: 0.0376 AVG Speedup: 7.30
+Running test case: 3 of 4 N= 16
+Time: 0.037538 Speedup: 7.31 Test  PASSED
+Time: 0.037538 Speedup: 7.31 Test  PASSED
+Time: 0.037538 Speedup: 7.31 Test  PASSED
+AVG Time: 0.0375 AVG Speedup: 7.31
+Running test case: 4 of 4 N= 1
+Time: 12.420973 Speedup: 1.00 Test  PASSED
+Time: 12.420973 Speedup: 1.00 Test  PASSED
+Time: 12.420973 Speedup: 1.00 Test  PASSED
+AVG Time: 12.4210 AVG Speedup: 1.00
+Running test case: 4 of 4 N= 2
+Time: 6.224191 Speedup: 2.00 Test  PASSED
+Time: 6.224191 Speedup: 2.00 Test  PASSED
+Time: 6.224191 Speedup: 2.00 Test  PASSED
+AVG Time: 6.2242 AVG Speedup: 2.00
+Running test case: 4 of 4 N= 4
+Time: 3.178061 Speedup: 3.91 Test  PASSED
+Time: 3.178061 Speedup: 3.91 Test  PASSED
+Time: 3.178061 Speedup: 3.91 Test  PASSED
+AVG Time: 3.1781 AVG Speedup: 3.91
+Running test case: 4 of 4 N= 8
+Time: 1.85018 Speedup: 6.71 Test  PASSED
+Time: 1.85018 Speedup: 6.71 Test  PASSED
+Time: 1.85018 Speedup: 6.71 Test  PASSED
+AVG Time: 1.8502 AVG Speedup: 6.71
+Running test case: 4 of 4 N= 16
+Time: 1.692351 Speedup: 7.34 Test  PASSED
+Time: 1.692351 Speedup: 7.34 Test  PASSED
+Time: 1.692351 Speedup: 7.34 Test  PASSED
+AVG Time: 1.6924 AVG Speedup: 7.34
+Running task: dz1z3
+Building variant: feyman_v0seq
+make: 'feyman_v0seq' is up to date.
+Running variant: feyman_v0seq
+Running test case: 1 of 4
+Time: 3.00147
+Time: 3.00147
+Time: 3.00147
+AVG Time: 3.0015
+Running test case: 2 of 4
+Time: 15.037826
+Time: 15.037826
+Time: 15.037826
+AVG Time: 15.0378
+Running test case: 3 of 4
+Time: 30.057722
+Time: 30.057722
+Time: 30.057722
+AVG Time: 30.0577
+Running test case: 4 of 4
+Time: 60.20391
+Time: 60.20391
+Time: 60.20391
+AVG Time: 60.2039
+Building variant: feyman_v1par
+make: 'feyman_v1par' is up to date.
+Running variant: feyman_v1par
+Running test case: 1 of 4 N= 1
+Time: 3.079399 Speedup: 0.97 Test  PASSED
+Time: 3.079399 Speedup: 0.97 Test  PASSED
+Time: 3.079399 Speedup: 0.97 Test  PASSED
+AVG Time: 3.0794 AVG Speedup: 0.97
+Running test case: 1 of 4 N= 2
+Time: 1.534794 Speedup: 1.96 Test  PASSED
+Time: 1.534794 Speedup: 1.96 Test  PASSED
+Time: 1.534794 Speedup: 1.96 Test  PASSED
+AVG Time: 1.5348 AVG Speedup: 1.96
+Running test case: 1 of 4 N= 4
+Time: 0.789028 Speedup: 3.80 Test  PASSED
+Time: 0.789028 Speedup: 3.80 Test  PASSED
+Time: 0.789028 Speedup: 3.80 Test  PASSED
+AVG Time: 0.7890 AVG Speedup: 3.80
+Running test case: 1 of 4 N= 8
+Time: 0.51208 Speedup: 5.86 Test  PASSED
+Time: 0.51208 Speedup: 5.86 Test  PASSED
+Time: 0.51208 Speedup: 5.86 Test  PASSED
+AVG Time: 0.5121 AVG Speedup: 5.86
+Running test case: 1 of 4 N= 16
+Time: 0.284061 Speedup: 10.57 Test  PASSED
+Time: 0.284061 Speedup: 10.57 Test  PASSED
+Time: 0.284061 Speedup: 10.57 Test  PASSED
+AVG Time: 0.2841 AVG Speedup: 10.57
+Running test case: 2 of 4 N= 1
+Time: 15.432074 Speedup: 0.97 Test  PASSED
+Time: 15.432074 Speedup: 0.97 Test  PASSED
+Time: 15.432074 Speedup: 0.97 Test  PASSED
+AVG Time: 15.4321 AVG Speedup: 0.97
+Running test case: 2 of 4 N= 2
+Time: 7.664479 Speedup: 1.96 Test  PASSED
+Time: 7.664479 Speedup: 1.96 Test  PASSED
+Time: 7.664479 Speedup: 1.96 Test  PASSED
+AVG Time: 7.6645 AVG Speedup: 1.96
+Running test case: 2 of 4 N= 4
+Time: 4.249781 Speedup: 3.54 Test  PASSED
+Time: 4.249781 Speedup: 3.54 Test  PASSED
+Time: 4.249781 Speedup: 3.54 Test  PASSED
+AVG Time: 4.2498 AVG Speedup: 3.54
+Running test case: 2 of 4 N= 8
+Time: 2.557309 Speedup: 5.88 Test  PASSED
+Time: 2.557309 Speedup: 5.88 Test  PASSED
+Time: 2.557309 Speedup: 5.88 Test  PASSED
+AVG Time: 2.5573 AVG Speedup: 5.88
+Running test case: 2 of 4 N= 16
+Time: 1.721699 Speedup: 8.73 Test  PASSED
+Time: 1.721699 Speedup: 8.73 Test  PASSED
+Time: 1.721699 Speedup: 8.73 Test  PASSED
+AVG Time: 1.7217 AVG Speedup: 8.73
+Running test case: 3 of 4 N= 1
+Time: 30.868948 Speedup: 0.97 Test  PASSED
+Time: 30.868948 Speedup: 0.97 Test  PASSED
+Time: 30.868948 Speedup: 0.97 Test  PASSED
+AVG Time: 30.8689 AVG Speedup: 0.97
+Running test case: 3 of 4 N= 2
+Time: 15.476185 Speedup: 1.94 Test  PASSED
+Time: 15.476185 Speedup: 1.94 Test  PASSED
+Time: 15.476185 Speedup: 1.94 Test  PASSED
+AVG Time: 15.4762 AVG Speedup: 1.94
+Running test case: 3 of 4 N= 4
+Time: 8.51532 Speedup: 3.53 Test  PASSED
+Time: 8.51532 Speedup: 3.53 Test  PASSED
+Time: 8.51532 Speedup: 3.53 Test  PASSED
+AVG Time: 8.5153 AVG Speedup: 3.53
+Running test case: 3 of 4 N= 8
+Time: 5.130231 Speedup: 5.86 Test  PASSED
+Time: 5.130231 Speedup: 5.86 Test  PASSED
+Time: 5.130231 Speedup: 5.86 Test  PASSED
+AVG Time: 5.1302 AVG Speedup: 5.86
+Running test case: 3 of 4 N= 16
+Time: 3.464078 Speedup: 8.68 Test  PASSED
+Time: 3.464078 Speedup: 8.68 Test  PASSED
+Time: 3.464078 Speedup: 8.68 Test  PASSED
+AVG Time: 3.4641 AVG Speedup: 8.68
+Running test case: 4 of 4 N= 1
+Time: 61.866387 Speedup: 0.97 Test  PASSED
+Time: 61.866387 Speedup: 0.97 Test  PASSED
+Time: 61.866387 Speedup: 0.97 Test  PASSED
+AVG Time: 61.8664 AVG Speedup: 0.97
+Running test case: 4 of 4 N= 2
+Time: 30.781276 Speedup: 1.96 Test  PASSED
+Time: 30.781276 Speedup: 1.96 Test  PASSED
+Time: 30.781276 Speedup: 1.96 Test  PASSED
+AVG Time: 30.7813 AVG Speedup: 1.96
+Running test case: 4 of 4 N= 4
+Time: 17.061577 Speedup: 3.53 Test  PASSED
+Time: 17.061577 Speedup: 3.53 Test  PASSED
+Time: 17.061577 Speedup: 3.53 Test  PASSED
+AVG Time: 17.0616 AVG Speedup: 3.53
+Running test case: 4 of 4 N= 8
+Time: 10.280693 Speedup: 5.86 Test  PASSED
+Time: 10.280693 Speedup: 5.86 Test  PASSED
+Time: 10.280693 Speedup: 5.86 Test  PASSED
+AVG Time: 10.2807 AVG Speedup: 5.86
+Running test case: 4 of 4 N= 16
+Time: 6.888797 Speedup: 8.74 Test  PASSED
+Time: 6.888797 Speedup: 8.74 Test  PASSED
+Time: 6.888797 Speedup: 8.74 Test  PASSED
+AVG Time: 6.8888 AVG Speedup: 8.74
+Running task: dz1z4
+Building variant: feyman_v0seq
+make: 'feyman_v0seq' is up to date.
+Running variant: feyman_v0seq
+Running test case: 1 of 4
+Time: 3.001821
+Time: 3.001821
+Time: 3.001821
+AVG Time: 3.0018
+Running test case: 2 of 4
+Time: 14.745724
+Time: 14.745724
+Time: 14.745724
+AVG Time: 14.7457
+Running test case: 3 of 4
+Time: 30.06388
+Time: 30.06388
+Time: 30.06388
+AVG Time: 30.0639
+Running test case: 4 of 4
+Time: 58.906569
+Time: 58.906569
+Time: 58.906569
+AVG Time: 58.9066
+Building variant: feyman_v1par
+make: 'feyman_v1par' is up to date.
+Running variant: feyman_v1par
+Running test case: 1 of 4 N= 1
+Time: 3.02845 Speedup: 0.99 Test  PASSED
+Time: 3.02845 Speedup: 0.99 Test  PASSED
+Time: 3.02845 Speedup: 0.99 Test  PASSED
+AVG Time: 3.0284 AVG Speedup: 0.99
+Running test case: 1 of 4 N= 2
+Time: 1.531741 Speedup: 1.96 Test  PASSED
+Time: 1.531741 Speedup: 1.96 Test  PASSED
+Time: 1.531741 Speedup: 1.96 Test  PASSED
+AVG Time: 1.5317 AVG Speedup: 1.96
+Running test case: 1 of 4 N= 4
+Time: 0.790694 Speedup: 3.80 Test  PASSED
+Time: 0.790694 Speedup: 3.80 Test  PASSED
+Time: 0.790694 Speedup: 3.80 Test  PASSED
+AVG Time: 0.7907 AVG Speedup: 3.80
+Running test case: 1 of 4 N= 8
+Time: 0.522038 Speedup: 5.75 Test  PASSED
+Time: 0.522038 Speedup: 5.75 Test  PASSED
+Time: 0.522038 Speedup: 5.75 Test  PASSED
+AVG Time: 0.5220 AVG Speedup: 5.75
+Running test case: 1 of 4 N= 16
+Time: 0.34144 Speedup: 8.79 Test  PASSED
+Time: 0.34144 Speedup: 8.79 Test  PASSED
+Time: 0.34144 Speedup: 8.79 Test  PASSED
+AVG Time: 0.3414 AVG Speedup: 8.79
+Running test case: 2 of 4 N= 1
+Time: 15.482496 Speedup: 0.95 Test  PASSED
+Time: 15.482496 Speedup: 0.95 Test  PASSED
+Time: 15.482496 Speedup: 0.95 Test  PASSED
+AVG Time: 15.4825 AVG Speedup: 0.95
+Running test case: 2 of 4 N= 2
+Time: 7.691087 Speedup: 1.92 Test  PASSED
+Time: 7.691087 Speedup: 1.92 Test  PASSED
+Time: 7.691087 Speedup: 1.92 Test  PASSED
+AVG Time: 7.6911 AVG Speedup: 1.92
+Running test case: 2 of 4 N= 4
+Time: 5.16213 Speedup: 2.86 Test  PASSED
+Time: 5.16213 Speedup: 2.86 Test  PASSED
+Time: 5.16213 Speedup: 2.86 Test  PASSED
+AVG Time: 5.1621 AVG Speedup: 2.86
+Running test case: 2 of 4 N= 8
+Time: 2.560633 Speedup: 5.76 Test  PASSED
+Time: 2.560633 Speedup: 5.76 Test  PASSED
+Time: 2.560633 Speedup: 5.76 Test  PASSED
+AVG Time: 2.5606 AVG Speedup: 5.76
+Running test case: 2 of 4 N= 16
+Time: 1.725937 Speedup: 8.54 Test  PASSED
+Time: 1.725937 Speedup: 8.54 Test  PASSED
+Time: 1.725937 Speedup: 8.54 Test  PASSED
+AVG Time: 1.7259 AVG Speedup: 8.54
+Running test case: 3 of 4 N= 1
+Time: 31.381967 Speedup: 0.96 Test  PASSED
+Time: 31.381967 Speedup: 0.96 Test  PASSED
+Time: 31.381967 Speedup: 0.96 Test  PASSED
+AVG Time: 31.3820 AVG Speedup: 0.96
+Running test case: 3 of 4 N= 2
+Time: 15.541731 Speedup: 1.93 Test  PASSED
+Time: 15.541731 Speedup: 1.93 Test  PASSED
+Time: 15.541731 Speedup: 1.93 Test  PASSED
+AVG Time: 15.5417 AVG Speedup: 1.93
+Running test case: 3 of 4 N= 4
+Time: 9.4046 Speedup: 3.20 Test  PASSED
+Time: 9.4046 Speedup: 3.20 Test  PASSED
+Time: 9.4046 Speedup: 3.20 Test  PASSED
+AVG Time: 9.4046 AVG Speedup: 3.20
+Running test case: 3 of 4 N= 8
+Time: 5.125752 Speedup: 5.87 Test  PASSED
+Time: 5.125752 Speedup: 5.87 Test  PASSED
+Time: 5.125752 Speedup: 5.87 Test  PASSED
+AVG Time: 5.1258 AVG Speedup: 5.87
+Running test case: 3 of 4 N= 16
+Time: 4.017337 Speedup: 7.48 Test  PASSED
+Time: 4.017337 Speedup: 7.48 Test  PASSED
+Time: 4.017337 Speedup: 7.48 Test  PASSED
+AVG Time: 4.0173 AVG Speedup: 7.48
+Running test case: 4 of 4 N= 1
+Time: 62.925918 Speedup: 0.94 Test  PASSED
+Time: 62.925918 Speedup: 0.94 Test  PASSED
+Time: 62.925918 Speedup: 0.94 Test  PASSED
+AVG Time: 62.9259 AVG Speedup: 0.94
+Running test case: 4 of 4 N= 2
+Time: 30.837731 Speedup: 1.91 Test  PASSED
+Time: 30.837731 Speedup: 1.91 Test  PASSED
+Time: 30.837731 Speedup: 1.91 Test  PASSED
+AVG Time: 30.8377 AVG Speedup: 1.91
+Running test case: 4 of 4 N= 4
+Time: 17.064377 Speedup: 3.45 Test  PASSED
+Time: 17.064377 Speedup: 3.45 Test  PASSED
+Time: 17.064377 Speedup: 3.45 Test  PASSED
+AVG Time: 17.0644 AVG Speedup: 3.45
+Running test case: 4 of 4 N= 8
+Time: 10.292427 Speedup: 5.72 Test  PASSED
+Time: 10.292427 Speedup: 5.72 Test  PASSED
+Time: 10.292427 Speedup: 5.72 Test  PASSED
+AVG Time: 10.2924 AVG Speedup: 5.72
+Running test case: 4 of 4 N= 16
+Time: 6.906858 Speedup: 8.53 Test  PASSED
+Time: 6.906858 Speedup: 8.53 Test  PASSED
+Time: 6.906858 Speedup: 8.53 Test  PASSED
+AVG Time: 6.9069 AVG Speedup: 8.53
+Running task: dz1z5
+Building variant: md_v0seq
+make: 'md_v0seq' is up to date.
+Running variant: md_v0seq
+Running test case: 1 of 1
+Time: 6.129913
+Time: 6.129913
+Time: 6.129913
+AVG Time: 6.1299
+Building variant: md_v1par
+make: 'md_v1par' is up to date.
+Running variant: md_v1par
+Running test case: 1 of 1 N= 1
+Time: 5.565156 Speedup: 1.10 Test  PASSED
+Time: 5.565156 Speedup: 1.10 Test  PASSED
+Time: 5.565156 Speedup: 1.10 Test  PASSED
+AVG Time: 5.5652 AVG Speedup: 1.10
+Running test case: 1 of 1 N= 2
+Time: 2.934789 Speedup: 2.09 Test  PASSED
+Time: 2.934789 Speedup: 2.09 Test  PASSED
+Time: 2.934789 Speedup: 2.09 Test  PASSED
+AVG Time: 2.9348 AVG Speedup: 2.09
+Running test case: 1 of 1 N= 4
+Time: 1.658008 Speedup: 3.70 Test  PASSED
+Time: 1.658008 Speedup: 3.70 Test  PASSED
+Time: 1.658008 Speedup: 3.70 Test  PASSED
+AVG Time: 1.6580 AVG Speedup: 3.70
+Running test case: 1 of 1 N= 8
+Time: 1.005981 Speedup: 6.09 Test  PASSED
+Time: 1.005981 Speedup: 6.09 Test  PASSED
+Time: 1.005981 Speedup: 6.09 Test  PASSED
+AVG Time: 1.0060 AVG Speedup: 6.09
+Running test case: 1 of 1 N= 16
+Time: 0.794634 Speedup: 7.71 Test  PASSED
+Time: 0.794634 Speedup: 7.71 Test  PASSED
+Time: 0.794634 Speedup: 7.71 Test  PASSED
+AVG Time: 0.7946 AVG Speedup: 7.71
+Total time taken: 22.04251003265381
