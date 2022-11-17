@@ -1,9 +1,5 @@
-*.o
-dz1z1
-dz1z2
-dz1z3
-dz1z4
-dz1z5
-prime/prime
-feyman/feyman
-MolDyn/md
+dz1z1/*.txt
+dz1z2/*.txt
+dz1z3/*.txt
+dz1z4/*.txt
+dz1z5/*.txt
