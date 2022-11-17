@@ -5,6 +5,7 @@ import time
 
 threadSettings = [1,2,4,8,16] if 'threads' in sys.argv else [16]
 numReps = 3 if 'reps' in sys.argv else 1
+short = 'short' in sys.argv
 
 refResult = dict()
 refTime = dict()
@@ -29,6 +30,8 @@ def buildVariant(task, variant):
 
 def runVariant(task, variant, cases, comparers):
     caseNo = 1;
+    if short:
+        cases = [cases[0]]
     for case in cases:
         if('_v0' in variant):
             print('Running test case:', caseNo, 'of', len(cases));
@@ -43,9 +46,15 @@ def runVariant(task, variant, cases, comparers):
                 refTime[str(caseNo)] = time
                 atime += time
                 refResult[str(caseNo)] = result
-                print('Time:', time)
+                if 'noclean' in sys.argv and 'noprint' in sys.argv and os.path.exists(f'{task}/{variant}_{caseNo}.txt'):
+                    pass
+                else:
+                    print('Time:', time)
             if numReps > 1:
-                print('AVG Time:', "%.4f" % (atime/numReps))
+                if 'noclean' in sys.argv and 'noprint' in sys.argv and os.path.exists(f'{task}/{variant}_{caseNo}.txt'):
+                    pass
+                else:
+                    print('AVG Time:', "%.4f" % (atime/numReps))
                 refTime[str(caseNo)] = atime/numReps
         else:
             for threadset in threadSettings:
@@ -61,10 +70,16 @@ def runVariant(task, variant, cases, comparers):
                     result = extractResult(task, variant, caseNo, threadset)
                     speedup = refTime[str(caseNo)]/time
                     result = compareResults(task, result, refResult[str(caseNo)], comparers)
-                    print('Time:', time, 'Speedup:', "%.2f" % speedup, 'Test ', 'PASSED' if result else 'FAILED')
+                    if 'noclean' in sys.argv and 'noprint' in sys.argv and os.path.exists(f'{task}/{variant}_{caseNo}_N{threadset}.txt'):
+                        pass
+                    else:
+                        print('Time:', time, 'Speedup:', "%.2f" % speedup, 'Test ', 'PASSED' if result else 'FAILED')
                 if numReps > 1:
                     aspeedup = refTime[str(caseNo)]/(atime/numReps)
-                    print('AVG Time:',"%.4f" % (atime/numReps), 'AVG Speedup:', "%.2f" % aspeedup)
+                    if 'noclean' in sys.argv and 'noprint' in sys.argv and os.path.exists(f'{task}/{variant}_{caseNo}_N{threadset}.txt'):
+                        pass
+                    else:
+                        print('AVG Time:',"%.4f" % (atime/numReps), 'AVG Speedup:', "%.2f" % aspeedup)
         caseNo = caseNo + 1
 
 def extractTime(task, variant, caseNo, threads = None):
