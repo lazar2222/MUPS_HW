@@ -6,4 +6,3 @@ CC_FLAGS = -fopenmp -O3
 	$(CC) $(CC_FLAGS) -o $(@) $(<) -lm
 
 clean:
-	rm -f *.o
