@@ -75,15 +75,15 @@ def printResults(task, variant, refVariant, caseNo, threads, repetitions, verbos
         speedup = reftime/time
         if verbose:
             if '_v0' in variant:
-                print('Time:', '%.4f' % time)
+                print('        Time:', '%.4f' % time)
             else:
-                print('Time:', '%.4f' % time, 'Speedup:', '%.2f' % speedup, 'Test', 'PASSED' if result else 'FAILED')
+                print('        Time:', '%.4f' % time, '    Speedup:', '%.2f' % speedup, '    Test ', 'PASSED' if result else 'FAILED')
     totaltime /= repetitions
     if repetitions > 1:
         if '_v0' in variant:
-            print('AVG Time:', '%.4f' % totaltime)
+            print('    AVG Time:', '%.4f' % totaltime)
         else:
-            print('AVG Time:', '%.4f' % totaltime, 'AVG Speedup:', '%.2f' % (reftime/totaltime), 'ALL Tests', 'PASSED' if result else 'FAILED')
+            print('    AVG Time:', '%.4f' % totaltime, 'AVG Speedup:', '%.2f' % (reftime/totaltime), 'ALL Tests', 'PASSED' if result else 'FAILED')
 
 def runTestCase(task, variant, refVariant, case, caseNo, totalCases, threads, repetitions, skip, doPrint, verbose):
     print('Running test case:', caseNo, 'of', totalCases, f'({case})', f'N={threads}', repetitions, 'times')
