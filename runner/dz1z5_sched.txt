@@ -32,14 +32,14 @@ Running test case: 1 of 1 () N=1 3 times
     AVG Time: 6.0875
 Running variant: md_v10dynamic32_t
 Running test case: 1 of 1 () N=4 3 times
-    AVG Time: 1.8099 AVG Speedup: 3.36 ALL Tests PASSED
+    AVG Time: 1.5145 AVG Speedup: 4.02 ALL Tests PASSED
 Running test case: 1 of 1 () N=8 3 times
-    AVG Time: 1.5401 AVG Speedup: 3.95 ALL Tests PASSED
+    AVG Time: 0.8254 AVG Speedup: 7.38 ALL Tests PASSED
 Running test case: 1 of 1 () N=16 3 times
-    AVG Time: 1.0458 AVG Speedup: 5.82 ALL Tests PASSED
+    AVG Time: 0.8097 AVG Speedup: 7.52 ALL Tests PASSED
 Running variant: md_v11dynamic64_t
 Running test case: 1 of 1 () N=4 3 times
-    AVG Time: 2.0658 AVG Speedup: 2.95 ALL Tests PASSED
+    AVG Time: 1.6332 AVG Speedup: 3.73 ALL Tests PASSED
 Running test case: 1 of 1 () N=8 3 times
     AVG Time: 1.0101 AVG Speedup: 6.03 ALL Tests PASSED
 Running test case: 1 of 1 () N=16 3 times
@@ -104,14 +104,14 @@ Running variant: md_v7dynamic4_t
 Running test case: 1 of 1 () N=4 3 times
     AVG Time: 1.6713 AVG Speedup: 3.64 ALL Tests PASSED
 Running test case: 1 of 1 () N=8 3 times
-    AVG Time: 1.1059 AVG Speedup: 5.50 ALL Tests PASSED
+    AVG Time: 1.0160 AVG Speedup: 5.99 ALL Tests PASSED
 Running test case: 1 of 1 () N=16 3 times
     AVG Time: 0.8432 AVG Speedup: 7.22 ALL Tests PASSED
 Running variant: md_v8dynamic8_t
 Running test case: 1 of 1 () N=4 3 times
     AVG Time: 1.6790 AVG Speedup: 3.63 ALL Tests PASSED
 Running test case: 1 of 1 () N=8 3 times
-    AVG Time: 1.0230 AVG Speedup: 5.95 ALL Tests PASSED
+    AVG Time: 1.0196 AVG Speedup: 5.97 ALL Tests PASSED
 Running test case: 1 of 1 () N=16 3 times
     AVG Time: 0.8269 AVG Speedup: 7.36 ALL Tests PASSED
 Running variant: md_v9dynamic16_t
@@ -121,4 +121,4 @@ Running test case: 1 of 1 () N=8 3 times
     AVG Time: 1.0298 AVG Speedup: 5.91 ALL Tests PASSED
 Running test case: 1 of 1 () N=16 3 times
     AVG Time: 0.8307 AVG Speedup: 7.33 ALL Tests PASSED
-Total time taken: 0.0341
+Total time taken: 0.0190
