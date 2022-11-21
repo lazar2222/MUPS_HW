@@ -1,0 +1,56 @@
+make: 'dz1z4/feyman_v0seq' is up to date.
+make: 'dz1z4/feyman_v1par' is up to date.
+Running task: dz1z4
+Building variant: feyman_v0seq
+Building variant: feyman_v1par
+Running variant: feyman_v0seq
+Running test case: 1 of 4 (1000) N=1 3 times
+    AVG Time: 3.0026
+Running test case: 2 of 4 (5000) N=1 3 times
+    AVG Time: 14.8497
+Running test case: 3 of 4 (10000) N=1 3 times
+    AVG Time: 30.1214
+Running test case: 4 of 4 (20000) N=1 3 times
+    AVG Time: 60.2822
+Running variant: feyman_v1par
+Running test case: 1 of 4 (1000) N=1 3 times
+    AVG Time: 3.0912 AVG Speedup: 0.97 ALL Tests PASSED
+Running test case: 1 of 4 (1000) N=2 3 times
+    AVG Time: 1.5744 AVG Speedup: 1.91 ALL Tests PASSED
+Running test case: 1 of 4 (1000) N=4 3 times
+    AVG Time: 0.7892 AVG Speedup: 3.80 ALL Tests PASSED
+Running test case: 1 of 4 (1000) N=8 3 times
+    AVG Time: 0.4228 AVG Speedup: 7.10 ALL Tests PASSED
+Running test case: 1 of 4 (1000) N=16 3 times
+    AVG Time: 0.2749 AVG Speedup: 10.92 ALL Tests PASSED
+Running test case: 2 of 4 (5000) N=1 3 times
+    AVG Time: 15.4184 AVG Speedup: 0.96 ALL Tests PASSED
+Running test case: 2 of 4 (5000) N=2 3 times
+    AVG Time: 7.7564 AVG Speedup: 1.91 ALL Tests PASSED
+Running test case: 2 of 4 (5000) N=4 3 times
+    AVG Time: 3.9423 AVG Speedup: 3.77 ALL Tests PASSED
+Running test case: 2 of 4 (5000) N=8 3 times
+    AVG Time: 2.1098 AVG Speedup: 7.04 ALL Tests PASSED
+Running test case: 2 of 4 (5000) N=16 3 times
+    AVG Time: 1.3802 AVG Speedup: 10.76 ALL Tests PASSED
+Running test case: 3 of 4 (10000) N=1 3 times
+    AVG Time: 30.6522 AVG Speedup: 0.98 ALL Tests PASSED
+Running test case: 3 of 4 (10000) N=2 3 times
+    AVG Time: 15.4195 AVG Speedup: 1.95 ALL Tests PASSED
+Running test case: 3 of 4 (10000) N=4 3 times
+    AVG Time: 7.9048 AVG Speedup: 3.81 ALL Tests PASSED
+Running test case: 3 of 4 (10000) N=8 3 times
+    AVG Time: 4.2168 AVG Speedup: 7.14 ALL Tests PASSED
+Running test case: 3 of 4 (10000) N=16 3 times
+    AVG Time: 2.7609 AVG Speedup: 10.91 ALL Tests PASSED
+Running test case: 4 of 4 (20000) N=1 3 times
+    AVG Time: 61.6934 AVG Speedup: 0.98 ALL Tests PASSED
+Running test case: 4 of 4 (20000) N=2 3 times
+    AVG Time: 30.9420 AVG Speedup: 1.95 ALL Tests PASSED
+Running test case: 4 of 4 (20000) N=4 3 times
+    AVG Time: 16.4067 AVG Speedup: 3.67 ALL Tests PASSED
+Running test case: 4 of 4 (20000) N=8 3 times
+    AVG Time: 9.0703 AVG Speedup: 6.65 ALL Tests PASSED
+Running test case: 4 of 4 (20000) N=16 3 times
+    AVG Time: 5.5753 AVG Speedup: 10.81 ALL Tests PASSED
+Total time taken: 0.0039
