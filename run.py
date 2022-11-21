@@ -26,7 +26,7 @@ def listTasks(argDict):
     return tasks
 
 def listVariants(task, argDict):
-    variants = [os.path.splitext(name)[0] for name in os.listdir(task) if (name.endswith('.c') and ('_v' in name))]
+    variants = [os.path.splitext(name)[0] for name in os.listdir(task) if (name.endswith('.c') and ('_v' in name) and (not name.endswith('_t.c') or 'test' in argDict))]
     variants.sort()
     if 'v_list' in argDict:
         variants = [variant for variant in variants if variant in argDict['v_list']]
@@ -150,6 +150,7 @@ def printHelp():
     print('-skip', 'dont re-run tests with existing logs', sep='\t')
     print('-print', 'print all tests, even skipped ones', sep='\t')
     print('-verbose', 'print detailed test results', sep='\t')
+    print('-test', 'run test variations', sep='\t')
     print('-t <task list>')
     print('-v <version list>')
     print('-c <number of test cases>')
