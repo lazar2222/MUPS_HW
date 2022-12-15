@@ -52,7 +52,7 @@ def getRepetitions(argDict):
 
 def buildVariant(task, variant):
     print('Building variant:', variant)
-    subprocess.run(f'make {task}/{variant}', shell = True)
+    subprocess.run(f'mpcc -O3 -o {task}/{variant[:-2]} {task}/{variant} -lm', shell = True)
 
 def compareResults(task, ref, res):
     return runner.comparers.comparers[task](ref,res)
@@ -134,7 +134,6 @@ def clean(argDict):
     tasks = listTasks(argDict)
     for task in tasks:
         print('Cleaning task:', task)
-        subprocess.run(f'make clean', shell = True)
         subprocess.run(f'(cd {task} && rm -f *.txt)', shell = True)
 
         variants = listVariants(task, argDict)

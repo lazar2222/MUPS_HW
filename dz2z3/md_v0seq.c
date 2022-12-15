@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-#include <omp.h>
 #include "../runner/runner.h"
 
 #define mm 15
@@ -95,27 +94,12 @@ int main()
   /*
    *  Generate fcc lattice for atoms inside box
    */
-  //#pragma omp parallel num_threads(3)
-  {
-    //#pragma omp sections 
-    {
-      //#pragma omp section
-      {
-        fcc(x, npart, mm, a);
-      }
-    /*
-    *  Initialise velocities and forces (which are zero in fcc positions)
-    */
-      //#pragma omp section
-      {
-        mxwell(vh, 3 * npart, h, tref);
-      }
-      //#pragma omp section
-      {
-        dfill(3 * npart, 0.0, f, 1);
-      }
-    }
-  }
+  fcc(x, npart, mm, a);
+  /*
+  *  Initialise velocities and forces (which are zero in fcc positions)
+  */
+  mxwell(vh, 3 * npart, h, tref);
+  dfill(3 * npart, 0.0, f, 1);
   /*
    *  Start of md
    */
@@ -177,7 +161,7 @@ time_t starttime = 0;
 double secnds()
 {
 
-  return omp_get_wtime();
+  return 0;
 }
 
 #undef mm
@@ -190,7 +174,6 @@ double secnds()
   dfill(int n, double val, double a[], int ia){
     int i;
 
-    //#pragma omp parallel for default(none) shared(n,val,a,ia) private(i)
     for (i=0; i<(n-1)*ia+1; i+=ia)
       a[i] = val;
   }
@@ -203,7 +186,6 @@ double secnds()
   domove(int n3, double x[], double vh[], double f[], double side){
     int i;
 
-    //#pragma omp parallel for default(none) shared(n3,x,vh,f,side) private(i)
     for (i=0; i<n3; i++) {
       x[i] += vh[i]+f[i];
   /*
@@ -292,7 +274,6 @@ void forces(int npart, double x[], double f[], double side, double rcoff)
   sideh = 0.5 * side;
   rcoffs = rcoff * rcoff;
 
-  #pragma omp parallel for schedule(dynamic, 16) default(none) private(i,j,xi,yi,zi,fxi,fyi,fzi,xx,yy,zz,rd,rrd,rrd2,rrd3,rrd4,rrd6,rrd7,r148,forcex,forcey,forcez) shared(x,f,npart,side,sideh,rcoffs) reduction(+:vir,epot)
   for (i = 0; i < npart * 3; i += 3)
   {
     xi = x[i];
@@ -334,23 +315,17 @@ void forces(int npart, double x[], double f[], double side, double rcoff)
         vir -= rd * r148;
         forcex = xx * r148;
         fxi += forcex;
-        #pragma omp atomic
         f[j] -= forcex;
         forcey = yy * r148;
         fyi += forcey;
-        #pragma omp atomic
         f[j + 1] -= forcey;
         forcez = zz * r148;
         fzi += forcez;
-        #pragma omp atomic
         f[j + 2] -= forcez;
       }
     }
-    #pragma omp atomic
     f[i] += fxi;
-    #pragma omp atomic
     f[i + 1] += fyi;
-    #pragma omp atomic
     f[i + 2] += fzi;
   }
 }

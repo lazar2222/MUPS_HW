@@ -1,9 +1,2 @@
-dz1z1/*
-dz1z2/*
-dz1z3/*
-dz1z4/*
-dz1z5/*
-!**/*.c
-!**/run
 *.pyc
 *.pgf
