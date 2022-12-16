@@ -7,12 +7,12 @@ double __runner__time=0;
 
 void __runner__start()
 {
-    __runner__start__time = MPI_Wtime()();
+    __runner__start__time = MPI_Wtime();
 }
 
 void __runner__stop()
 {
-    __runner__end__time = MPI_Wtime()();
+    __runner__end__time = MPI_Wtime();
     __runner__time += __runner__end__time - __runner__start__time;
 }
 
