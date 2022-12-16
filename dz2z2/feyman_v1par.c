@@ -158,6 +158,7 @@ int main(int arc, char **argv)
 
   int iter;
   double tmpError;
+  int tmpInside;
 
   //for (i = 1; i <= ni; i++)
   //{
@@ -266,10 +267,12 @@ int main(int arc, char **argv)
   }
 
   MPI_Reduce(&err, &tmpError, 1, MPI_DOUBLE, MPI_SUM, MASTER, MPI_COMM_WORLD);
-  err = sqrt(tmpError / (double)(n_inside));
+  MPI_Reduce(&n_inside, &tmpInside, 1, MPI_INT, MPI_SUM, MASTER, MPI_COMM_WORLD);
 
   MASTER_ONLY
   {
+    err = sqrt(tmpError / (double)(tmpInside));
+
     __runner__stop();
 
     printf("\n\nRMS absolute error in solution = %e\n", err);

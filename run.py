@@ -124,7 +124,7 @@ def runTestCase(task, variant, case, caseNo, totalCases, threads, repetitions, s
         if os.path.exists(f'{task}/{"gold" if "_v0" in variant else "out"}/{variant}_{caseNo}_N{threads}_R{i}.txt') and skip:
             pass
         else:
-            subprocess.run(f'(cd {task}/{"gold" if "_v0" in variant else "out"} && mpirun -np {threads} {variant} {case} > {variant}_{caseNo}_N{threads}_R{i}.txt)', shell=True)
+            subprocess.run(f'(cd {task}/{"gold" if "_v0" in variant else "out"} && mpirun -np {threads} ./{variant} {case} > {variant}_{caseNo}_N{threads}_R{i}.txt)', shell=True)
             hasRun = True
     if hasRun or doPrint:
         printResults(task, variant, caseNo, threads, repetitions, verbose)
