@@ -4,6 +4,9 @@
 #include <time.h>
 #include "../runner/runner.h"
 
+#define MASTER 0
+#define MASTER_ONLY if(rank == MASTER)
+
 int i4_ceiling(double x)
 {
   int value = (int)x;
@@ -103,17 +106,31 @@ int main(int arc, char **argv)
   double we;
   double wt;
   double z;
+  int size;
+  int rank;
+
+  MPI_Init(&arc, &argv);
+  MPI_Comm_size(MPI_COMM_WORLD, &size);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  if(size > 4)
+  {
+    MPI_Abort(MPI_COMM_WORLD,1);
+  }
 
   int N = atoi(argv[1]);
-  timestamp();
 
-  printf("A = %f\n", a);
-  printf("B = %f\n", b);
-  printf("C = %f\n", c);
-  printf("N = %d\n", N);
-  printf("H = %6.4f\n", h);
+  MASTER_ONLY
+  {
+    timestamp();
 
-  __runner__start();
+    printf("A = %f\n", a);
+    printf("B = %f\n", b);
+    printf("C = %f\n", c);
+    printf("N = %d\n", N);
+    printf("H = %6.4f\n", h);
+
+    __runner__start();
+  }
 
   stepsz = sqrt((double)dim * h);
 
@@ -139,16 +156,26 @@ int main(int arc, char **argv)
   err = 0.0;
   n_inside = 0;
 
-  for (i = 1; i <= ni; i++)
+  int iter;
+  double tmpError;
+
+  //for (i = 1; i <= ni; i++)
+  //{
+  //  for (j = 1; j <= nj; j++)
+  //  {
+  //    for (k = 1; k <= nk; k++)
+  //    {
+  int slice = (ni * nj * nk) / size;
+  int excess = (ni * nj * nk) % size;
+  int start =(slice * rank + i4_min(excess, rank));
+  int end = start + slice + (rank < excess ? 1 : 0);
+  for(iter = start; iter < end; iter++)
   {
-    x = ((double)(ni - i) * (-a) + (double)(i - 1) * a) / (double)(ni - 1);
-
-    for (j = 1; j <= nj; j++)
-    {
-      y = ((double)(nj - j) * (-b) + (double)(j - 1) * b) / (double)(nj - 1);
-
-      for (k = 1; k <= nk; k++)
-      {
+        i = (iter / (nk * nj)) + 1;
+        j = ((iter / nk) % nj) + 1;
+        k = (iter % nk) + 1;
+        x = ((double)(ni - i) * (-a) + (double)(i - 1) * a) / (double)(ni - 1);
+        y = ((double)(nj - j) * (-b) + (double)(j - 1) * b) / (double)(nj - 1);
         z = ((double)(nk - k) * (-c) + (double)(k - 1) * c) / (double)(nk - 1);
 
         chk = pow(x / a, 2) + pow(y / b, 2) + pow(z / c, 2);
@@ -238,17 +265,23 @@ int main(int arc, char **argv)
 
         // printf("  %7.4f  %7.4f  %7.4f  %10.4e  %10.4e  %10.4e  %8d\n",
         //        x, y, z, wt, w_exact, fabs(w_exact - wt), steps_ave);
-      }
-    }
+      //}
+    //}
   }
-  err = sqrt(err / (double)(n_inside));
+  MPI_Reduce(&err, &tmpError, 1, MPI_DOUBLE, MPI_SUM, MASTER, MPI_COMM_WORLD);
+  err = sqrt(tmpError / (double)(n_inside));
 
-  __runner__stop();
+  MASTER_ONLY
+  {
+    __runner__stop();
 
-  printf("\n\nRMS absolute error in solution = %e\n", err);
-  timestamp();
+    printf("\n\nRMS absolute error in solution = %e\n", err);
+    timestamp();
 
-  __runner__print();
+    __runner__print();
+  }
+
+  MPI_Finalize();
 
   return 0;
 }
