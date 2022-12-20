@@ -46,7 +46,7 @@ double count;
 /*
  *  Main program : Molecular Dynamics simulation.
  */
-int main()
+int main(int argc, char **argv)
 {
   int move;
   double x[npart * 3], vh[npart * 3], f[npart * 3];
@@ -74,6 +74,8 @@ int main()
   double hsq2 = hsq * 0.5;
   double tscale = 16.0 / ((double)npart - 1.0);
   double vaver = 1.13 * sqrt(tref / 24.0);
+
+  MPI_Init(&argc, &argv);
 
   /*
    *  Initial output
@@ -154,6 +156,10 @@ int main()
 
   printf("Time =  %f\n", (float)time);
   __runner__print();
+  
+  MPI_Finalize();
+
+  return 0;
 }
 
 time_t starttime = 0;
