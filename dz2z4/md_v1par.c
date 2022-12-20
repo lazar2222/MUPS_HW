@@ -58,7 +58,7 @@ double tmpVir;
 int main(int argc, char **argv)
 {
   int move;
-  double x[npart * 3], vh[npart * 3], f[npart * 3];
+  double x[npart * 3], vh[npart * 3], f[npart * 3], tf[npart * 3];
   double ekin;
   double vel;
   double sc;
