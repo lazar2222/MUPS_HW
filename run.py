@@ -159,7 +159,7 @@ def run(argDict):
     tasks = listTasks(argDict)
     threads = listThreads(argDict)
     repetitions = getRepetitions(argDict)
-    skip = 'skip' in argDict
+    skip = 'noskip' not in argDict
     doPrint = 'print' in argDict
     verbose = 'verbose' in argDict
 
@@ -188,7 +188,7 @@ def printHelp():
     print('Arguments:')
     print('-help                              ', 'show this help', sep='\t')
     print('-clean [out] [gold] [logs] [plots] ', 'clean generated files', sep='\t')
-    print('-skip                              ', 'dont re-run tests with existing logs', sep='\t')
+    print('-noskip                            ', 're-run tests with existing logs', sep='\t')
     print('-print                             ', 'print all tests, even skipped ones', sep='\t')
     print('-verbose                           ', 'print detailed test results', sep='\t')
     print('-test [set]                        ', 'run test variations', sep='\t')
