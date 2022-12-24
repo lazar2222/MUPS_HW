@@ -26,40 +26,21 @@ int prime_number(int n, int rank, int size)
 
   total = 0;
 
-  int slice = (n - 1) / (2 * size);
-  int excess = (n - 1) % (2* size);
-  int start = 2 + ( slice * rank + min(excess , rank));
-  int end = start + slice + (rank < excess ? 1 : 0);
-
-  for (i = start; i < end; i++)
+  for (int x = 2 + rank; x <= n; x +=  16 * size)
   {
-    prime = 1;
-    for (j = 2; j < i; j++)
+    for (i = x; i < x + 16 && i<=n; i++)
     {
-      if ((i % j) == 0)
+      prime = 1;
+      for (j = 2; j < i; j++)
       {
-        prime = 0;
-        break;
+        if ((i % j) == 0)
+        {
+          prime = 0;
+          break;
+        }
       }
+      total = total + prime;
     }
-    total = total + prime;
-  }
-
-  rank = 7 - rank;
-  start = 2 + ( slice * rank + min(excess , rank));
-  end = start + slice + (rank < excess ? 1 : 0);
-  for (i = start; i < end; i++)
-  {
-    prime = 1;
-    for (j = 2; j < i; j++)
-    {
-      if ((i % j) == 0)
-      {
-        prime = 0;
-        break;
-      }
-    }
-    total = total + prime;
   }
   return total;
 }
