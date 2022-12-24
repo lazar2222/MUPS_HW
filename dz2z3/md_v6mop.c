@@ -11,9 +11,6 @@
 
 #define MASTER 0
 #define MASTER_ONLY if(rank == MASTER)
-#define SLAVE_ONLY if(rank != MASTER)
-#define DATA_TAG 0 
-#define END_TAG 1
 /*
  *  Function declarations
  */
@@ -26,7 +23,7 @@ void dscal(int, double, double[], int);
 
 void fcc(double[], int, int, double);
 
-void forces(int, double[], double[], double, double, int, int, int);
+void forces(int, double[], double[], double, double, int, int);
 
 double
 mkekin(int, double[], double[], double, double);
@@ -86,7 +83,6 @@ int main(int argc, char **argv)
 
   int size;
   int rank;
-  int chunkSize = 160;
 
   MPI_Init(&argc, &argv);
   MPI_Comm_size(MPI_COMM_WORLD, &size);
@@ -95,7 +91,6 @@ int main(int argc, char **argv)
   {
     MPI_Abort(MPI_COMM_WORLD,1);
   }
-
 
   MASTER_ONLY
   {
@@ -159,8 +154,12 @@ int main(int argc, char **argv)
     {
       f[i] = 0;
     }
-    forces(npart, x, f, side, rcoff, rank, size, chunkSize);
+    forces(npart, x, f, side, rcoff, rank, size);
     MPI_Reduce(f, tf, npart * 3, MPI_DOUBLE, MPI_SUM, MASTER, MPI_COMM_WORLD);
+    MPI_Reduce(&vir, &tmpVir, 1, MPI_DOUBLE, MPI_SUM, MASTER, MPI_COMM_WORLD);
+    MPI_Reduce(&epot, &tmpEpot, 1, MPI_DOUBLE, MPI_SUM, MASTER, MPI_COMM_WORLD);
+    vir = tmpVir;
+    epot = tmpEpot;
 
     MASTER_ONLY
     {
@@ -172,7 +171,6 @@ int main(int argc, char **argv)
       /*
        *  Average the velocity and temperature scale if desired
        */
-      vel = velavg(npart, vh, vaver, h);
       if (move < istop && fmod(move, irep) == 0)
       {
         sc = sqrt(tref / (tscale * ekin));
@@ -184,7 +182,10 @@ int main(int argc, char **argv)
        *  Sum to get full potential energy and virial
        */
       if (fmod(move, iprint) == 0)
-            prnout(move, ekin, epot, tscale, vir, vel, count, npart, den);
+      {
+        vel = velavg(npart, vh, vaver, h);
+        prnout(move, ekin, epot, tscale, vir, vel, count, npart, den);
+      }
     }
   }
 
@@ -308,7 +309,7 @@ double secnds()
  */
 extern double epot, vir;
 
-void forces(int npart, double x[], double f[], double side, double rcoff, int rank, int size, int chunkSize)
+void forces(int npart, double x[], double f[], double side, double rcoff, int rank, int size)
 {
   int i, j;
   double sideh, rcoffs;
@@ -316,104 +317,64 @@ void forces(int npart, double x[], double f[], double side, double rcoff, int ra
   double rd, rrd, rrd2, rrd3, rrd4, rrd6, rrd7, r148;
   double forcex, forcey, forcez;
 
-  MPI_Status status;
-
   vir = 0.0;
   epot = 0.0;
   sideh = 0.5 * side;
   rcoffs = rcoff * rcoff;
 
-  MASTER_ONLY
+  for (i = rank * 3; i < npart * 3; i += 3 * size)
   {
-    double rec[2];
-    for (i = 0; i < npart * 3; i += 3 * chunkSize)
-    {
-      MPI_Recv(rec, 2, MPI_DOUBLE, MPI_ANY_SOURCE, DATA_TAG, MPI_COMM_WORLD, &status);
-      MPI_Send(&i, 1, MPI_INT, status.MPI_SOURCE, DATA_TAG, MPI_COMM_WORLD);
-      vir += rec[0]; 
-      epot += rec[1];
-    }
-    for(int i = 1; i < size; i++)
-    {
-      MPI_Recv(rec, 2, MPI_DOUBLE, MPI_ANY_SOURCE, DATA_TAG, MPI_COMM_WORLD, &status);
-      MPI_Send(&i, 1, MPI_INT, status.MPI_SOURCE, END_TAG, MPI_COMM_WORLD);
-      vir += rec[0]; 
-      epot += rec[1];
-    }
-  }
-  SLAVE_ONLY
-  {
-    double arr[] = {0,0};
-    int i;
-    MPI_Send(arr, 2, MPI_DOUBLE, MASTER, DATA_TAG, MPI_COMM_WORLD);
-    while(1)
-    {
-      MPI_Recv(&i, 1, MPI_INT, MASTER, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
-      if(status.MPI_TAG == END_TAG)
-      {
-        break;
-      }
-      int end = i + 3 * chunkSize;
-      for(;i < end; i += 3)
-      {
-        xi = x[i];
-        yi = x[i + 1];
-        zi = x[i + 2];
-        fxi = 0.0;
-        fyi = 0.0;
-        fzi = 0.0;
+    xi = x[i];
+    yi = x[i + 1];
+    zi = x[i + 2];
+    fxi = 0.0;
+    fyi = 0.0;
+    fzi = 0.0;
 
-        for (j = i + 3; j < npart * 3; j += 3)
-        {
-          xx = xi - x[j];
-          yy = yi - x[j + 1];
-          zz = zi - x[j + 2];
-          if (xx < -sideh)
-            xx += side;
-          if (xx > sideh)
-            xx -= side;
-          if (yy < -sideh)
-            yy += side;
-          if (yy > sideh)
-            yy -= side;
-          if (zz < -sideh)
-            zz += side;
-          if (zz > sideh)
-            zz -= side;
-          rd = xx * xx + yy * yy + zz * zz;
+    for (j = i + 3; j < npart * 3; j += 3)
+    {
+      xx = xi - x[j];
+      yy = yi - x[j + 1];
+      zz = zi - x[j + 2];
+      if (xx < -sideh)
+        xx += side;
+      if (xx > sideh)
+        xx -= side;
+      if (yy < -sideh)
+        yy += side;
+      if (yy > sideh)
+        yy -= side;
+      if (zz < -sideh)
+        zz += side;
+      if (zz > sideh)
+        zz -= side;
+      rd = xx * xx + yy * yy + zz * zz;
 
-          if (rd <= rcoffs)
-          {
-            rrd = 1.0 / rd;
-            rrd2 = rrd * rrd;
-            rrd3 = rrd2 * rrd;
-            rrd4 = rrd2 * rrd2;
-            rrd6 = rrd2 * rrd4;
-            rrd7 = rrd6 * rrd;
-            epot += (rrd6 - rrd3);
-            r148 = rrd7 - 0.5 * rrd4;
-            vir -= rd * r148;
-            forcex = xx * r148;
-            fxi += forcex;
-            f[j] -= forcex;
-            forcey = yy * r148;
-            fyi += forcey;
-            f[j + 1] -= forcey;
-            forcez = zz * r148;
-            fzi += forcez;
-            f[j + 2] -= forcez;
-          }
-        }
-        f[i] += fxi;
-        f[i + 1] += fyi;
-        f[i + 2] += fzi;
+      if (rd <= rcoffs)
+      {
+        rrd = 1.0 / rd;
+        rrd2 = rrd * rrd;
+        rrd3 = rrd2 * rrd;
+        rrd4 = rrd2 * rrd2;
+        rrd6 = rrd2 * rrd4;
+        rrd7 = rrd6 * rrd;
+        epot += (rrd6 - rrd3);
+        r148 = rrd7 - 0.5 * rrd4;
+        vir -= rd * r148;
+        forcex = xx * r148;
+        fxi += forcex;
+        f[j] -= forcex;
+        forcey = yy * r148;
+        fyi += forcey;
+        f[j + 1] -= forcey;
+        forcez = zz * r148;
+        fzi += forcez;
+        f[j + 2] -= forcez;
       }
-      arr[0] = vir;
-      arr[1] = epot;
-      vir = 0;
-      epot = 0;
-      MPI_Send(arr, 2, MPI_DOUBLE, MASTER, DATA_TAG, MPI_COMM_WORLD);
     }
+    f[i] += fxi;
+    f[i + 1] += fyi;
+    f[i + 2] += fzi;
   }
 }
 

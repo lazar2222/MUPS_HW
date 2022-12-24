@@ -70,6 +70,9 @@ def listThreads(argDict):
         threads = [thread for thread in threads if str(thread) in argDict['h_list']]
     return threads
 
+def listParameters(task, variation):
+    params = [text.strip() for text in open(task + '/' + variation + '.par').readlines() if not text.startswith('#')]
+    return params
 
 def getRepetitions(argDict):
     repetitions = 1
@@ -87,7 +90,7 @@ def compareResults(task, ref, res):
     return runner.comparers.comparers[task](ref, res)
 
 
-def printResults(task, variant, caseNo, threads, repetitions, verbose):
+def printResults(task, variant, caseNo, threads, repetitions, verbose, param = None):
     goldVariant = getGoldVariant(task)
     reftime = 0
     reflines = ''
@@ -98,7 +101,10 @@ def printResults(task, variant, caseNo, threads, repetitions, verbose):
     totaltime = 0
     passed = True
     for i in range(repetitions):
-        lines = open(f'{task}/{"gold" if "_v0" in variant else "out"}/{variant}_{caseNo}_N{threads}_R{i}.txt').readlines()
+        if param == None:
+            lines = open(f'{task}/{"gold" if "_v0" in variant else "out"}/{variant}_{caseNo}_N{threads}_R{i}.txt').readlines()
+        else:
+            lines = open(f'{task}/{"gold" if "_v0" in variant else "out"}/{variant}_{caseNo}_N{threads}_P{param}_R{i}.txt').readlines()
         time = float(lines[-1].split(' ')[1])
         result = compareResults(task, reflines, lines)
         totaltime += time
@@ -129,12 +135,29 @@ def runTestCase(task, variant, case, caseNo, totalCases, threads, repetitions, s
     if hasRun or doPrint:
         printResults(task, variant, caseNo, threads, repetitions, verbose)
 
+def runParametrized(task, variant, case, caseNo, totalCases, threads, repetitions, skip, doPrint, verbose):
+    params = listParameters(task, variant)
+    for param in params:
+        print('Running parametrized test case:', caseNo, 'of', totalCases, f'({case})', f'N={threads}', 'parameter:', param, repetitions, 'times')
+        hasRun = False
+        for i in range(repetitions):
+            if os.path.exists(f'{task}/{"gold" if "_v0" in variant else "out"}/{variant}_{caseNo}_N{threads}_P{param}_R{i}.txt') and skip:
+                pass
+            else:
+                subprocess.run(f'(cd {task}/{"gold" if "_v0" in variant else "out"} && mpirun -np {threads} ./{variant} {case} {param} > {variant}_{caseNo}_N{threads}_P{param}_R{i}.txt)', shell=True)
+                hasRun = True
+        if hasRun or doPrint:
+            printResults(task, variant, caseNo, threads, repetitions, verbose, param)
+
 
 def runVariant(task, variant, cases, threads, repetitions, skip, doPrint, verbose):
     print('Running variant:', variant)
     for i in range(len(cases)):
         for thread in threads:
-            runTestCase(task, variant, cases[i], i + 1, len(cases), thread, repetitions, skip, doPrint, verbose)
+            if variant[:-1].endswith('_t'):
+                runParametrized(task, variant, cases[i], i + 1, len(cases), thread, repetitions, skip, doPrint, verbose)
+            else:
+                runTestCase(task, variant, cases[i], i + 1, len(cases), thread, repetitions, skip, doPrint, verbose)
 
 
 def runTask(task, threads, repetitions, skip, doPrint, verbose, argDict):
