@@ -1,0 +1,52 @@
+Running task: dz2z1
+Building variant: prime_v0seq
+Building variant: prime_v1blk
+Building variant: prime_v2cyc
+Building variant: prime_v3spl
+Running variant: prime_v0seq
+Running test case: 1 of 3 (1 65536 4) N=1 3 times
+    AVG Time: 0.2735
+Running test case: 2 of 3 (1 131072 2) N=1 3 times
+    AVG Time: 1.3006
+Running test case: 3 of 3 (5 500000 10) N=1 3 times
+    AVG Time: 12.5617
+Running variant: prime_v1blk
+Running test case: 1 of 3 (1 65536 4) N=2 3 times
+    AVG Time: 0.2005 AVG Speedup: 1.36 ALL Tests PASSED
+Running test case: 1 of 3 (1 65536 4) N=4 3 times
+    AVG Time: 0.1182 AVG Speedup: 2.31 ALL Tests PASSED
+Running test case: 2 of 3 (1 131072 2) N=2 3 times
+    AVG Time: 0.9430 AVG Speedup: 1.38 ALL Tests PASSED
+Running test case: 2 of 3 (1 131072 2) N=4 3 times
+    AVG Time: 0.5619 AVG Speedup: 2.31 ALL Tests PASSED
+Running test case: 3 of 3 (5 500000 10) N=2 3 times
+    AVG Time: 9.1251 AVG Speedup: 1.38 ALL Tests PASSED
+Running test case: 3 of 3 (5 500000 10) N=4 3 times
+    AVG Time: 5.4555 AVG Speedup: 2.30 ALL Tests PASSED
+Running variant: prime_v2cyc
+Running test case: 1 of 3 (1 65536 4) N=2 3 times
+    AVG Time: 0.2687 AVG Speedup: 1.02 ALL Tests PASSED
+Running test case: 1 of 3 (1 65536 4) N=4 3 times
+    AVG Time: 0.1403 AVG Speedup: 1.95 ALL Tests PASSED
+Running test case: 2 of 3 (1 131072 2) N=2 3 times
+    AVG Time: 1.2852 AVG Speedup: 1.01 ALL Tests PASSED
+Running test case: 2 of 3 (1 131072 2) N=4 3 times
+    AVG Time: 0.6685 AVG Speedup: 1.95 ALL Tests PASSED
+Running test case: 3 of 3 (5 500000 10) N=2 3 times
+    AVG Time: 12.4098 AVG Speedup: 1.01 ALL Tests PASSED
+Running test case: 3 of 3 (5 500000 10) N=4 3 times
+    AVG Time: 6.4354 AVG Speedup: 1.95 ALL Tests PASSED
+Running variant: prime_v3spl
+Running test case: 1 of 3 (1 65536 4) N=2 3 times
+    AVG Time: 0.2545 AVG Speedup: 1.07 ALL Tests PASSED
+Running test case: 1 of 3 (1 65536 4) N=4 3 times
+    AVG Time: 0.0713 AVG Speedup: 3.83 ALL Tests PASSED
+Running test case: 2 of 3 (1 131072 2) N=2 3 times
+    AVG Time: 1.2318 AVG Speedup: 1.06 ALL Tests PASSED
+Running test case: 2 of 3 (1 131072 2) N=4 3 times
+    AVG Time: 0.3385 AVG Speedup: 3.84 ALL Tests PASSED
+Running test case: 3 of 3 (5 500000 10) N=2 3 times
+    AVG Time: 12.1255 AVG Speedup: 1.04 ALL Tests PASSED
+Running test case: 3 of 3 (5 500000 10) N=4 3 times
+    AVG Time: 3.2681 AVG Speedup: 3.84 ALL Tests PASSED
+Total time taken: 0.4487
