@@ -17,7 +17,7 @@ double cpu_time(void)
   return value;
 }
 
-int prime_number(int n, int rank, int size)
+int prime_number(int n, int rank, int size, int chunksize)
 {
   int i;
   int j;
@@ -26,9 +26,9 @@ int prime_number(int n, int rank, int size)
 
   total = 0;
 
-  for (int x = 2 + rank * 16; x <= n; x +=  16 * size)
+  for (int x = 2 + rank * chunksize; x <= n; x +=  chunksize * size)
   {
-    for (i = x; i < x + 16 && i<=n; i++)
+    for (i = x; i < x + chunksize && i<=n; i++)
     {
       prime = 1;
       for (j = 2; j < i; j++)
@@ -65,7 +65,7 @@ void timestamp(void)
 #undef TIME_SIZE
 }
 
-void test(int n_lo, int n_hi, int n_factor, int rank, int size);
+void test(int n_lo, int n_hi, int n_factor, int rank, int size, int chunksize);
 
 int main(int argc, char *argv[])
 {
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
     printf("\n");
     printf("PRIME TEST\n");
 
-    if (argc != 4)
+    if (argc != 5)
     {
       n_lo = 1;
       n_hi = 131072;
@@ -103,13 +103,14 @@ int main(int argc, char *argv[])
     }
   }
 
+  int chunksize = atoi(argv[4]);
   int arr[] = {n_lo,n_hi,n_factor};
   MPI_Bcast(arr, 3, MPI_INT, MASTER, MPI_COMM_WORLD);
   n_lo = arr[0];
   n_hi = arr[1];
   n_factor = arr[2];
 
-  test(n_lo, n_hi, n_factor, rank, size);
+  test(n_lo, n_hi, n_factor, rank, size, chunksize);
 
   MASTER_ONLY
   {
@@ -127,7 +128,7 @@ int main(int argc, char *argv[])
   return 0;
 }
 
-void test(int n_lo, int n_hi, int n_factor, int rank, int size)
+void test(int n_lo, int n_hi, int n_factor, int rank, int size, int chunksize)
 {
   int i;
   int n;
@@ -155,7 +156,7 @@ void test(int n_lo, int n_hi, int n_factor, int rank, int size)
       __runner__start();
     }
 
-    tmpPrimes = prime_number(n, rank, size);
+    tmpPrimes = prime_number(n, rank, size, chunksize);
     MPI_Reduce(&tmpPrimes, &primes, 1, MPI_INT, MPI_SUM, MASTER, MPI_COMM_WORLD);
 
     MASTER_ONLY
