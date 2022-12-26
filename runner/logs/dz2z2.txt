@@ -63,4 +63,4 @@ Running test case: 4 of 4 (20000) N=2 3 times
     AVG Time: 60.5103 AVG Speedup: 1.00 ALL Tests PASSED
 Running test case: 4 of 4 (20000) N=4 3 times
     AVG Time: 22.1730 AVG Speedup: 2.72 ALL Tests PASSED
-Total time taken: 0.5419
+Total time taken: 0.5342

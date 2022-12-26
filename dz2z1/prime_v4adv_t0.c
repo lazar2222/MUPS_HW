@@ -26,7 +26,7 @@ int prime_number(int n, int rank, int size, int chunksize)
 
   total = 0;
 
-  for (int x = 2 + rank * chunksize; x <= n; x +=  chunksize * size)
+  for (int x = 2 + (rank * chunksize); x <= n; x +=  chunksize * size)
   {
     for (i = x; i < x + chunksize && i<=n; i++)
     {
