@@ -29,7 +29,7 @@ def listTasks(argDict):
 
 
 def isValidSet(name, argDict):
-    if not (name.endswith('.c') and ('_v' in name)):
+    if not (name.endswith('.cu') and ('_v' in name)):
         return False
     if '_v0' in name:
         return False
@@ -39,7 +39,7 @@ def isValidSet(name, argDict):
         if len(argDict['test_list']) > 0:
             set = argDict['test_list'][0]
     if name[:-3].endswith('_t'):
-        return name.endswith(f'_t{set}.c')
+        return name.endswith(f'_t{set}.cu')
     else:
         return set == -1
 
@@ -53,7 +53,7 @@ def listVariants(task, argDict):
 
 
 def getGoldVariant(task):
-    variants = [os.path.splitext(name)[0] for name in os.listdir(task) if name.endswith('.c') and ('_v0' in name)]
+    variants = [os.path.splitext(name)[0] for name in os.listdir(task) if name.endswith('.cu') and ('_v0' in name)]
     return variants[0]
 
 
@@ -65,7 +65,7 @@ def listCases(task, argDict):
 
 
 def listThreads(argDict):
-    threads = [2, 4]
+    threads = [1]
     if 'h_list' in argDict:
         threads = [thread for thread in threads if str(thread) in argDict['h_list']]
     return threads
@@ -83,7 +83,7 @@ def getRepetitions(argDict):
 
 def buildVariant(task, variant):
     print('Building variant:', variant)
-    subprocess.run(f'mpicc -O3 -o {task}/{"gold" if "_v0" in variant else "out"}/{variant} {task}/{variant}.c -lm', shell=True)
+    subprocess.run(f'nvcc -O3 -o {task}/{"gold" if "_v0" in variant else "out"}/{variant} {task}/{variant}.cu', shell=True)
 
 
 def compareResults(task, ref, res):
@@ -130,7 +130,7 @@ def runTestCase(task, variant, case, caseNo, totalCases, threads, repetitions, s
         if os.path.exists(f'{task}/{"gold" if "_v0" in variant else "out"}/{variant}_{caseNo}_N{threads}_R{i}.txt') and skip:
             pass
         else:
-            subprocess.run(f'(cd {task}/{"gold" if "_v0" in variant else "out"} && mpirun -np {threads} ./{variant} {case} > {variant}_{caseNo}_N{threads}_R{i}.txt)', shell=True)
+            subprocess.run(f'(cd {task}/{"gold" if "_v0" in variant else "out"} && ./{variant} {case} > {variant}_{caseNo}_N{threads}_R{i}.txt)', shell=True)
             hasRun = True
     if hasRun or doPrint:
         printResults(task, variant, caseNo, threads, repetitions, verbose)
@@ -144,7 +144,7 @@ def runParametrized(task, variant, case, caseNo, totalCases, threads, repetition
             if os.path.exists(f'{task}/{"gold" if "_v0" in variant else "out"}/{variant}_{caseNo}_N{threads}_P{param}_R{i}.txt') and skip:
                 pass
             else:
-                subprocess.run(f'(cd {task}/{"gold" if "_v0" in variant else "out"} && mpirun -np {threads} ./{variant} {case} {param} > {variant}_{caseNo}_N{threads}_P{param}_R{i}.txt)', shell=True)
+                subprocess.run(f'(cd {task}/{"gold" if "_v0" in variant else "out"} && ./{variant} {case} {param} > {variant}_{caseNo}_N{threads}_P{param}_R{i}.txt)', shell=True)
                 hasRun = True
         if hasRun or doPrint:
             printResults(task, variant, caseNo, threads, repetitions, verbose, param)

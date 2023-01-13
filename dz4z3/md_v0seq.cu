@@ -75,8 +75,6 @@ int main(int argc, char **argv)
   double tscale = 16.0 / ((double)npart - 1.0);
   double vaver = 1.13 * sqrt(tref / 24.0);
 
-  MPI_Init(&argc, &argv);
-
   /*
    *  Initial output
    */
@@ -98,8 +96,8 @@ int main(int argc, char **argv)
    */
   fcc(x, npart, mm, a);
   /*
-  *  Initialise velocities and forces (which are zero in fcc positions)
-  */
+   *  Initialise velocities and forces (which are zero in fcc positions)
+   */
   mxwell(vh, 3 * npart, h, tref);
   dfill(3 * npart, 0.0, f, 1);
   /*
@@ -157,8 +155,6 @@ int main(int argc, char **argv)
   printf("Time =  %f\n", (float)time);
   __runner__print();
   
-  MPI_Finalize();
-
   return 0;
 }
 

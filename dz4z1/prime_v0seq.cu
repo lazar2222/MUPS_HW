@@ -66,8 +66,6 @@ int main(int argc, char *argv[])
   int n_hi;
   int n_lo;
 
-  MPI_Init(&argc, &argv);
-
   timestamp();
   printf("\n");
   printf("PRIME TEST\n");
@@ -94,8 +92,6 @@ int main(int argc, char *argv[])
   timestamp();
 
   __runner__print();
-
-  MPI_Finalize();
 
   return 0;
 }

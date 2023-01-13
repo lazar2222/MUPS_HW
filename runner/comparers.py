@@ -16,4 +16,4 @@ def compareFeyman(res1,res2):
 def compareMolDyn(res1,res2):
     return res1[:-2] == res2[:-2]
 
-comparers = {'dz2z1': comparePrime, 'dz2z2':compareFeyman, 'dz2z3':compareMolDyn, 'dz2z4':compareMolDyn}
+comparers = {'dz4z1': comparePrime, 'dz4z2':compareFeyman, 'dz4z3':compareMolDyn}

@@ -1,22 +1,25 @@
 #include <stdio.h>
-#include <mpi.h>
+#include <cuda_runtime.h>
 
-double __runner__start__time;
-double __runner__end__time;
-double __runner__time=0;
+cudaEvent_t __runner__start__event;
+cudaEvent_t __runner__end__event;
+float __runner__time=0;
 
 void __runner__start()
 {
-    __runner__start__time = MPI_Wtime();
+    cudaEventCreate(&__runner__start__event);
+    cudaEventCreate(&__runner__end__event);
+    cudaEventRecord(__runner__start__event);
 }
 
 void __runner__stop()
 {
-    __runner__end__time = MPI_Wtime();
-    __runner__time += __runner__end__time - __runner__start__time;
+    cudaEventRecord(__runner__end__event);
+    cudaEventSynchronize(__runner__end__event);
+    cudaEventElapsedTime(&__runner__time, __runner__start__event, __runner__end__event);
 }
 
 void __runner__print()
 {
-    printf("Time: %lf\n",__runner__time);
+    printf("Time: %f\n",__runner__time);
 }

@@ -104,8 +104,6 @@ int main(int arc, char **argv)
   double wt;
   double z;
 
-  MPI_Init(&arc, &argv);
-
   int N = atoi(argv[1]);
   timestamp();
 
@@ -251,8 +249,6 @@ int main(int arc, char **argv)
   timestamp();
 
   __runner__print();
-
-  MPI_Finalize();
 
   return 0;
 }
