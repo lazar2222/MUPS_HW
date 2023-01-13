@@ -113,8 +113,6 @@ int main(int arc, char **argv)
   printf("N = %d\n", N);
   printf("H = %6.4f\n", h);
 
-  __runner__start();
-
   stepsz = sqrt((double)dim * h);
 
   if (a == i4_min(i4_min(a, b), c))
@@ -138,6 +136,8 @@ int main(int arc, char **argv)
 
   err = 0.0;
   n_inside = 0;
+
+  __runner__start();
 
   for (i = 1; i <= ni; i++)
   {
@@ -241,9 +241,10 @@ int main(int arc, char **argv)
       }
     }
   }
-  err = sqrt(err / (double)(n_inside));
 
   __runner__stop();
+
+  err = sqrt(err / (double)(n_inside));
 
   printf("\n\nRMS absolute error in solution = %e\n", err);
   timestamp();

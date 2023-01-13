@@ -4,7 +4,7 @@ def comparePrime(res1,res2):
     for i in range(len(res1)):
         spl1 = list(filter(None,res1[i].split(' ')))
         spl2 = list(filter(None,res2[i].split(' ')))
-        if(spl1[0] != spl2[0] or spl1[0] != spl2[0]):
+        if(spl1[0] != spl2[0] or spl1[1] != spl2[1]):
             return False
     return True
 
