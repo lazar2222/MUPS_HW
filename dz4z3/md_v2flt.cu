@@ -6,42 +6,43 @@
 #include <time.h>
 #include "../runner/runner.h"
 
+#define NUM_OF_GPU_THREADS 1024
+
 #define mm 15
 #define npart 4 * mm *mm *mm
 /*
  *  Function declarations
  */
 
-void dfill(int, double, double[], int);
+void dfill(int, float, float[], int);
 
-void domove(int, double[], double[], double[], double);
+void domove(int, float[], float[], float[], float);
 
-void dscal(int, double, double[], int);
+void dscal(int, float, float[], int);
 
-void fcc(double[], int, int, double);
+void fcc(float[], int, int, float);
 
-void forces(int, double[], double[], double, double);
+__global__ void forces(float* x, float side, float rcoff, float* globalEpot,float* globalVir, float* globalF);
 
-double
-mkekin(int, double[], double[], double, double);
+float mkekin(int, float[], float[], float, float);
 
-void mxwell(double[], int, double, double);
+void mxwell(float[], int, float, float);
 
-void prnout(int, double, double, double, double, double, double, int, double);
+void prnout(int, float, float, float, float, float, float, int, float);
 
-double
-velavg(int, double[], double, double);
+float
+velavg(int, float[], float, float);
 
-double
+float
 secnds(void);
 
 /*
  *  Variable declarations
  */
 
-double epot;
-double vir;
-double count;
+float epot;
+float vir;
+float count;
 
 /*
  *  Main program : Molecular Dynamics simulation.
@@ -49,31 +50,32 @@ double count;
 int main(int argc, char **argv)
 {
   int move;
-  double x[npart * 3], vh[npart * 3], f[npart * 3];
-  double ekin;
-  double vel;
-  double sc;
-  double start, time;
+  float x[npart * 3], vh[npart * 3];
+  float f[npart * 3];
+  float ekin;
+  float vel;
+  float sc;
+  float start, time;
 
   /*
    *  Parameter definitions
    */
 
-  double den = 0.83134;
-  double side = pow((double)npart / den, 0.3333333);
-  double tref = 0.722;
-  double rcoff = (double)mm / 4.0;
-  double h = 0.064;
+  float den = 0.83134;
+  float side = pow((float)npart / den, 0.3333333);
+  float tref = 0.722;
+  float rcoff = (float)mm / 4.0;
+  float h = 0.064;
   int irep = 10;
   int istop = 20;
   int iprint = 5;
   int movemx = 20;
 
-  double a = side / (double)mm;
-  double hsq = h * h;
-  double hsq2 = hsq * 0.5;
-  double tscale = 16.0 / ((double)npart - 1.0);
-  double vaver = 1.13 * sqrt(tref / 24.0);
+  float a = side / (float)mm;
+  float hsq = h * h;
+  float hsq2 = hsq * 0.5;
+  float tscale = 16.0 / ((float)npart - 1.0);
+  float vaver = 1.13 * sqrt(tref / 24.0);
 
   /*
    *  Initial output
@@ -109,6 +111,26 @@ int main(int argc, char **argv)
 
   start = secnds();
 
+  dim3 gridDim((npart+NUM_OF_GPU_THREADS-1)/NUM_OF_GPU_THREADS);
+  dim3 blockDim(NUM_OF_GPU_THREADS);
+
+  vir = 0.0;
+  epot = 0.0;
+
+  float* globalVir;
+  float* globalEpot;
+  float* hostVir;
+  float* hostEpot;
+  float* globalF;
+  float* globalX;
+
+  hostVir =(float*) malloc(sizeof(float)*gridDim.x);
+  hostEpot =(float*) malloc(sizeof(float)*gridDim.x);
+  cudaMalloc(&globalVir, sizeof(float)*gridDim.x);
+  cudaMalloc(&globalEpot, sizeof(float)*gridDim.x);
+  cudaMalloc(&globalF, npart*3*sizeof(float));
+  cudaMalloc(&globalX, npart*3*sizeof(float));
+
   __runner__start();
 
   for (move = 1; move <= movemx; move++)
@@ -123,13 +145,22 @@ int main(int argc, char **argv)
      *  Compute forces in the new positions and accumulate the virial
      *  and potential energy.
      */
-    forces(npart, x, f, side, rcoff);
-    for(int index = 0;index<npart*3;index++)
+
+    vir = 0.0;
+    epot = 0.0;
+
+    cudaMemcpy(globalF,f,npart*3*sizeof(float),cudaMemcpyHostToDevice);
+    cudaMemcpy(globalX,x,npart*3*sizeof(float),cudaMemcpyHostToDevice);
+    forces<<<gridDim,blockDim>>>(globalX,side,rcoff,globalEpot,globalVir,globalF);
+    cudaMemcpy(hostVir,globalVir,sizeof(float)*gridDim.x,cudaMemcpyDeviceToHost);
+    cudaMemcpy(hostEpot,globalEpot,sizeof(float)*gridDim.x,cudaMemcpyDeviceToHost);
+    cudaMemcpy(f,globalF,npart*3*sizeof(float),cudaMemcpyDeviceToHost);
+    for(int index = 0;index<gridDim.x;index++)
     {
-      //printf("%lf ",f[index]);
+      vir+=hostVir[index];
+      epot+=hostEpot[index];
     }
     //printf("\n%lf %lf\n",vir,epot);
-
     /*
      *  Scale forces, complete update of velocities and compute k.e.
      */
@@ -155,6 +186,10 @@ int main(int argc, char **argv)
 
   __runner__stop();
 
+  cudaFree(globalVir);
+  cudaFree(globalEpot);
+  cudaFree(globalF);
+
   time = secnds() - start;
 
   printf("Time =  %f\n", (float)time);
@@ -165,7 +200,7 @@ int main(int argc, char **argv)
 
 time_t starttime = 0;
 
-double secnds()
+float secnds()
 {
 
   return 0;
@@ -175,10 +210,10 @@ double secnds()
 #undef npart
 // dfill.c
 /*
- *  function dfill : intialises double precision array to scalar value
+ *  function dfill : intialises float precision array to scalar value
  */
   void
-  dfill(int n, double val, double a[], int ia){
+  dfill(int n, float val, float a[], int ia){
     int i;
 
     for (i=0; i<(n-1)*ia+1; i+=ia)
@@ -190,7 +225,7 @@ double secnds()
  *  Move particles
  */
   void
-  domove(int n3, double x[], double vh[], double f[], double side){
+  domove(int n3, float x[], float vh[], float f[], float side){
     int i;
 
     for (i=0; i<n3; i++) {
@@ -216,7 +251,7 @@ double secnds()
  *  Scales an array
  */
   void
-  dscal(int n,double sa,double sx[], int incx){
+  dscal(int n,float sa,float sx[], int incx){
     int i,j;
 
     if (incx == 1) {
@@ -236,7 +271,7 @@ double secnds()
  *   Generate fcc lattice for atoms inside the box
  */
   void
-  fcc(double x[], int npart, int mm, double a){
+  fcc(float x[], int npart, int mm, float a){
     int ijk=0;
     int i,j,k,lg;
 
@@ -266,22 +301,31 @@ double secnds()
 /*
  *  Compute forces and accumulate the virial and the potential
  */
-extern double epot, vir;
-
-void forces(int npart, double x[], double f[], double side, double rcoff)
+#define mm 15
+#define npart 4 * mm *mm *mm
+__global__ void forces(float* x, float side, float rcoff, float* globalEpot,float* globalVir, float* globalF)
 {
+  __shared__ float epot[NUM_OF_GPU_THREADS];
+  __shared__ float vir[NUM_OF_GPU_THREADS];
+  float f[npart * 3];
   int i, j;
-  double sideh, rcoffs;
-  double xi, yi, zi, fxi, fyi, fzi, xx, yy, zz;
-  double rd, rrd, rrd2, rrd3, rrd4, rrd6, rrd7, r148;
-  double forcex, forcey, forcez;
+  for (i = 0; i < npart * 3; i++)
+  {
+    f[i]=0;
+  }
+  float sideh, rcoffs;
+  float xi, yi, zi, fxi, fyi, fzi, xx, yy, zz;
+  float rd, rrd, rrd2, rrd3, rrd4, rrd6, rrd7, r148;
+  float forcex, forcey, forcez;
 
-  vir = 0.0;
-  epot = 0.0;
+  vir[threadIdx.x] = 0.0;
+  epot[threadIdx.x] = 0.0;
   sideh = 0.5 * side;
   rcoffs = rcoff * rcoff;
 
-  for (i = 0; i < npart * 3; i += 3)
+  i = (blockIdx.x * blockDim.x + threadIdx.x) * 3;
+  //for (i = 0; i < npart * 3; i += 3)
+  if(i<npart*3)
   {
     xi = x[i];
     yi = x[i + 1];
@@ -317,9 +361,9 @@ void forces(int npart, double x[], double f[], double side, double rcoff)
         rrd4 = rrd2 * rrd2;
         rrd6 = rrd2 * rrd4;
         rrd7 = rrd6 * rrd;
-        epot += (rrd6 - rrd3);
+        epot[threadIdx.x] += (rrd6 - rrd3);
         r148 = rrd7 - 0.5 * rrd4;
-        vir -= rd * r148;
+        vir[threadIdx.x] -= rd * r148;
         forcex = xx * r148;
         fxi += forcex;
         f[j] -= forcex;
@@ -335,16 +379,36 @@ void forces(int npart, double x[], double f[], double side, double rcoff)
     f[i + 1] += fyi;
     f[i + 2] += fzi;
   }
-}
+  i = (blockIdx.x * blockDim.x + threadIdx.x) * 3;
+  for(;i<npart*3;i++)
+  {
+    atomicAdd(&globalF[i],f[i]);
+  }
 
+  __syncthreads();
+  for (int iter = blockDim.x >> 1 ; iter > 0; iter >>= 1) {
+    if ( threadIdx.x < iter) {
+      vir[threadIdx.x] += vir[threadIdx.x + iter];
+      epot[threadIdx.x] += epot[threadIdx.x + iter];
+    } 
+    __syncthreads();
+  }
+  if (threadIdx.x == 0) {
+    globalVir[blockIdx.x]=vir[0];
+    globalEpot[blockIdx.x]=epot[0];
+  }
+
+}
+#undef mm
+#undef npart
 // mkekin.c
 /*
  *  Scale forces, update velocities and compute K.E.
  */
-  double
-  mkekin(int npart, double f[], double vh[], double hsq2, double hsq){
+  float
+  mkekin(int npart, float f[], float vh[], float hsq2, float hsq){
     int i;
-    double sum=0.0, ekin;
+    float sum=0.0, ekin;
 
     for (i=0; i<3*npart; i++) {
       f[i]*=hsq2;
@@ -363,13 +427,13 @@ void forces(int npart, double x[], double f[], double side, double rcoff)
  *  Sample Maxwell distribution at temperature tref
  */
   void
-  mxwell(double vh[], int n3, double h, double tref){
+  mxwell(float vh[], int n3, float h, float tref){
     int i;
     int npart=n3/3;
-    double r, tscale, v1, v2, s, ekin=0.0, sp=0.0, sc;
+    float r, tscale, v1, v2, s, ekin=0.0, sp=0.0, sc;
     
     srand48(4711);
-    tscale=16.0/((double)npart-1.0);
+    tscale=16.0/((float)npart-1.0);
 
     for (i=0; i<n3; i+=2) {
       s=2.0;
@@ -384,7 +448,7 @@ void forces(int npart, double x[], double f[], double side, double rcoff)
     }
 
     for (i=0; i<n3; i+=3) sp+=vh[i];
-    sp/=(double)npart;
+    sp/=(float)npart;
     for(i=0; i<n3; i+=3) {
       vh[i]-=sp;
       ekin+=vh[i]*vh[i];
@@ -392,7 +456,7 @@ void forces(int npart, double x[], double f[], double side, double rcoff)
 
     sp=0.0;
     for (i=1; i<n3; i+=3) sp+=vh[i];
-    sp/=(double)npart;
+    sp/=(float)npart;
     for(i=1; i<n3; i+=3) {
       vh[i]-=sp;
       ekin+=vh[i]*vh[i];
@@ -400,7 +464,7 @@ void forces(int npart, double x[], double f[], double side, double rcoff)
 
     sp=0.0;
     for (i=2; i<n3; i+=3) sp+=vh[i];
-    sp/=(double)npart;
+    sp/=(float)npart;
     for(i=2; i<n3; i+=3) {
       vh[i]-=sp;
       ekin+=vh[i]*vh[i];
@@ -415,17 +479,17 @@ void forces(int npart, double x[], double f[], double side, double rcoff)
  *   Print out interesting information at current timestep
  */
   void
-  prnout(int move, double ekin, double epot, double tscale, double vir,
-         double vel, double count, int npart, double den){
-    double ek, etot, temp, pres, rp;
+  prnout(int move, float ekin, float epot, float tscale, float vir,
+         float vel, float count, int npart, float den){
+    float ek, etot, temp, pres, rp;
 
     ek=24.0*ekin;
     epot*=4.0;
     etot=ek+epot;
     temp=tscale*ekin;
-    pres=den*16.0*(ekin-vir)/(double)npart;
-    vel/=(double)npart;
-    rp=(count/(double)npart)*100.0;
+    pres=den*16.0*(ekin-vir)/(float)npart;
+    vel/=(float)npart;
+    rp=(count/(float)npart)*100.0;
     printf(" %6d%12.4f%12.4f%12.4f%10.4f%10.4f%10.4f%6.1f\n",
            move,ek,epot,etot,temp,pres,vel,rp);
 
@@ -435,13 +499,13 @@ void forces(int npart, double x[], double f[], double side, double rcoff)
 /*
  *  Compute average velocity
  */
-  double
-  velavg(int npart, double vh[], double vaver, double h){
+  float
+  velavg(int npart, float vh[], float vaver, float h){
     int i;
-    double vaverh=vaver*h;
-    double vel=0.0;
-    double sq;
-    extern double count;
+    float vaverh=vaver*h;
+    float vel=0.0;
+    float sq;
+    extern float count;
 
     count=0.0;
     for (i=0; i<npart*3; i+=3){
