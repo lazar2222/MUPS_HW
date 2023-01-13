@@ -21,5 +21,5 @@ void __runner__stop()
 
 void __runner__print()
 {
-    printf("Time: %f\n",__runner__time);
+    printf("Time: %f\n",__runner__time/1000);
 }
