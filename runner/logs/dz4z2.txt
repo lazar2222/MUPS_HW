@@ -1,6 +1,7 @@
 Running task: dz4z2
 Building variant: feyman_v0seq
 Building variant: feyman_v1par
+Building variant: feyman_v2pow
 Running variant: feyman_v0seq
 Running test case: 1 of 4 (1000) N=1 3 times
     AVG Time: 3.0034
@@ -12,11 +13,20 @@ Running test case: 4 of 4 (20000) N=1 3 times
     AVG Time: 60.1816
 Running variant: feyman_v1par
 Running test case: 1 of 4 (1000) N=1 3 times
-    AVG Time: 0.2510 AVG Speedup: 11.97 ALL Tests PASSED
+    AVG Time: 5.0807 AVG Speedup: 0.59 ALL Tests PASSED
 Running test case: 2 of 4 (5000) N=1 3 times
-    AVG Time: 1.1873 AVG Speedup: 12.68 ALL Tests PASSED
+    AVG Time: 24.7715 AVG Speedup: 0.61 ALL Tests PASSED
 Running test case: 3 of 4 (10000) N=1 3 times
-    AVG Time: 2.3555 AVG Speedup: 12.78 ALL Tests PASSED
+    AVG Time: 49.1987 AVG Speedup: 0.61 ALL Tests PASSED
 Running test case: 4 of 4 (20000) N=1 3 times
-    AVG Time: 4.6962 AVG Speedup: 12.82 ALL Tests PASSED
-Total time taken: 1.1187
+    AVG Time: 98.3862 AVG Speedup: 0.61 ALL Tests PASSED
+Running variant: feyman_v2pow
+Running test case: 1 of 4 (1000) N=1 3 times
+    AVG Time: 0.2472 AVG Speedup: 12.15 ALL Tests PASSED
+Running test case: 2 of 4 (5000) N=1 3 times
+    AVG Time: 1.1883 AVG Speedup: 12.67 ALL Tests PASSED
+Running test case: 3 of 4 (10000) N=1 3 times
+    AVG Time: 2.3577 AVG Speedup: 12.77 ALL Tests PASSED
+Running test case: 4 of 4 (20000) N=1 3 times
+    AVG Time: 4.7067 AVG Speedup: 12.79 ALL Tests PASSED
+Total time taken: 1.7244
