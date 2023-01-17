@@ -26,7 +26,7 @@ int i4_min(int i1, int i2)
 
 __device__ float mpow(float a, int b)
 {
-  return pow(a,b);
+  return a*a;
 }
 
 __device__ float potential(float a, float b, float c, float x, float y, float z)
