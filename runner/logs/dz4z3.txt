@@ -5,26 +5,14 @@ Building variant: md_v2god
 Building variant: md_v3flt
 Running variant: md_v0seq
 Running test case: 1 of 1 () N=1 3 times
-        Time: 5.9441
-        Time: 5.7574
-        Time: 5.8348
     AVG Time: 5.8454
 Running variant: md_v1par
 Running test case: 1 of 1 () N=1 3 times
-        Time: 2.2344     Speedup: 2.62     Test  PASSED
-        Time: 2.2468     Speedup: 2.60     Test  PASSED
-        Time: 2.2482     Speedup: 2.60     Test  PASSED
-    AVG Time: 2.2431 AVG Speedup: 2.61 ALL Tests PASSED
+    AVG Time: 2.2163 AVG Speedup: 2.64 ALL Tests PASSED
 Running variant: md_v2god
 Running test case: 1 of 1 () N=1 3 times
-        Time: 1.5638     Speedup: 3.74     Test  PASSED
-        Time: 1.5618     Speedup: 3.74     Test  PASSED
-        Time: 1.5620     Speedup: 3.74     Test  PASSED
-    AVG Time: 1.5625 AVG Speedup: 3.74 ALL Tests PASSED
+    AVG Time: 1.5472 AVG Speedup: 3.78 ALL Tests PASSED
 Running variant: md_v3flt
 Running test case: 1 of 1 () N=1 3 times
-        Time: 0.0461     Speedup: 126.70     Test  PASSED
-        Time: 0.0462     Speedup: 126.48     Test  PASSED
-        Time: 0.0462     Speedup: 126.54     Test  PASSED
-    AVG Time: 0.0462 AVG Speedup: 126.57 ALL Tests PASSED
-Total time taken: 15.0268
+    AVG Time: 0.0457 AVG Speedup: 128.00 ALL Tests PASSED
+Total time taken: 2.5011
