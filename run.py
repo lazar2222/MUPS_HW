@@ -83,7 +83,7 @@ def getRepetitions(argDict):
 
 def buildVariant(task, variant):
     print('Building variant:', variant)
-    subprocess.run(f'nvcc -O3 -o {task}/{"gold" if "_v0" in variant else "out"}/{variant} {task}/{variant}.cu', shell=True)
+    subprocess.run(f'nvcc -O3 -arch=compute_86 -code=sm_86 -o {task}/{"gold" if "_v0" in variant else "out"}/{variant} {task}/{variant}.cu', shell=True)
 
 
 def compareResults(task, ref, res):
