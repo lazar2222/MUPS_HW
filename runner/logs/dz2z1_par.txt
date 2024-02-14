@@ -1,0 +1,66 @@
+Running task: dz2z1
+Building variant: prime_v0seq
+Building variant: prime_v4adv_t0
+Running variant: prime_v0seq
+Running test case: 1 of 3 (1 65536 4) N=1 2 times
+    AVG Time: 0.2735
+Running test case: 2 of 3 (1 131072 2) N=1 2 times
+    AVG Time: 1.3005
+Running test case: 3 of 3 (5 500000 10) N=1 2 times
+    AVG Time: 12.5616
+Running variant: prime_v4adv_t0
+Running parametrized test case: 1 of 3 (1 65536 4) N=4 parameter: 1 2 times
+    AVG Time: 0.1404 AVG Speedup: 1.95 ALL Tests PASSED
+Running parametrized test case: 1 of 3 (1 65536 4) N=4 parameter: 2 2 times
+    AVG Time: 0.0709 AVG Speedup: 3.86 ALL Tests PASSED
+Running parametrized test case: 1 of 3 (1 65536 4) N=4 parameter: 4 2 times
+    AVG Time: 0.0704 AVG Speedup: 3.89 ALL Tests PASSED
+Running parametrized test case: 1 of 3 (1 65536 4) N=4 parameter: 8 2 times
+    AVG Time: 0.0709 AVG Speedup: 3.86 ALL Tests PASSED
+Running parametrized test case: 1 of 3 (1 65536 4) N=4 parameter: 16 2 times
+    AVG Time: 0.0707 AVG Speedup: 3.87 ALL Tests PASSED
+Running parametrized test case: 1 of 3 (1 65536 4) N=4 parameter: 32 2 times
+    AVG Time: 0.0713 AVG Speedup: 3.83 ALL Tests PASSED
+Running parametrized test case: 1 of 3 (1 65536 4) N=4 parameter: 64 2 times
+    AVG Time: 0.0708 AVG Speedup: 3.86 ALL Tests PASSED
+Running parametrized test case: 1 of 3 (1 65536 4) N=4 parameter: 128 2 times
+    AVG Time: 0.0716 AVG Speedup: 3.82 ALL Tests PASSED
+Running parametrized test case: 1 of 3 (1 65536 4) N=4 parameter: 256 2 times
+    AVG Time: 0.0720 AVG Speedup: 3.80 ALL Tests PASSED
+Running parametrized test case: 2 of 3 (1 131072 2) N=4 parameter: 1 2 times
+    AVG Time: 0.6687 AVG Speedup: 1.94 ALL Tests PASSED
+Running parametrized test case: 2 of 3 (1 131072 2) N=4 parameter: 2 2 times
+    AVG Time: 0.3378 AVG Speedup: 3.85 ALL Tests PASSED
+Running parametrized test case: 2 of 3 (1 131072 2) N=4 parameter: 4 2 times
+    AVG Time: 0.3378 AVG Speedup: 3.85 ALL Tests PASSED
+Running parametrized test case: 2 of 3 (1 131072 2) N=4 parameter: 8 2 times
+    AVG Time: 0.3364 AVG Speedup: 3.87 ALL Tests PASSED
+Running parametrized test case: 2 of 3 (1 131072 2) N=4 parameter: 16 2 times
+    AVG Time: 0.3381 AVG Speedup: 3.85 ALL Tests PASSED
+Running parametrized test case: 2 of 3 (1 131072 2) N=4 parameter: 32 2 times
+    AVG Time: 0.3364 AVG Speedup: 3.87 ALL Tests PASSED
+Running parametrized test case: 2 of 3 (1 131072 2) N=4 parameter: 64 2 times
+    AVG Time: 0.3364 AVG Speedup: 3.87 ALL Tests PASSED
+Running parametrized test case: 2 of 3 (1 131072 2) N=4 parameter: 128 2 times
+    AVG Time: 0.3366 AVG Speedup: 3.86 ALL Tests PASSED
+Running parametrized test case: 2 of 3 (1 131072 2) N=4 parameter: 256 2 times
+    AVG Time: 0.3363 AVG Speedup: 3.87 ALL Tests PASSED
+Running parametrized test case: 3 of 3 (5 500000 10) N=4 parameter: 1 2 times
+    AVG Time: 6.4313 AVG Speedup: 1.95 ALL Tests PASSED
+Running parametrized test case: 3 of 3 (5 500000 10) N=4 parameter: 2 2 times
+    AVG Time: 3.2280 AVG Speedup: 3.89 ALL Tests PASSED
+Running parametrized test case: 3 of 3 (5 500000 10) N=4 parameter: 4 2 times
+    AVG Time: 3.2329 AVG Speedup: 3.89 ALL Tests PASSED
+Running parametrized test case: 3 of 3 (5 500000 10) N=4 parameter: 8 2 times
+    AVG Time: 3.2202 AVG Speedup: 3.90 ALL Tests PASSED
+Running parametrized test case: 3 of 3 (5 500000 10) N=4 parameter: 16 2 times
+    AVG Time: 3.2188 AVG Speedup: 3.90 ALL Tests PASSED
+Running parametrized test case: 3 of 3 (5 500000 10) N=4 parameter: 32 2 times
+    AVG Time: 3.2245 AVG Speedup: 3.90 ALL Tests PASSED
+Running parametrized test case: 3 of 3 (5 500000 10) N=4 parameter: 64 2 times
+    AVG Time: 3.2448 AVG Speedup: 3.87 ALL Tests PASSED
+Running parametrized test case: 3 of 3 (5 500000 10) N=4 parameter: 128 2 times
+    AVG Time: 3.2295 AVG Speedup: 3.89 ALL Tests PASSED
+Running parametrized test case: 3 of 3 (5 500000 10) N=4 parameter: 256 2 times
+    AVG Time: 3.2324 AVG Speedup: 3.89 ALL Tests PASSED
+Total time taken: 0.2066
